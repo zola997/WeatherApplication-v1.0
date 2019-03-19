@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity"
+    android:orientation="vertical"
+    android:weightSum="4">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@android:color/holo_blue_light">
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textSize="25dp"
+            android:inputType="textPersonName"
+            android:text="Град: "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="Дан :"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:background="@android:color/holo_blue_light"
+        >
+
+
+        <Button
+            android:id="@+id/temperatura"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="13dp"
+            android:text="Температура"
+            android:background="@android:drawable/btn_default_small"/>
+
+        <Button
+            android:id="@+id/sunce"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Излазак и залазак сунца"
+            android:background="@android:drawable/btn_default_small"
+            />
+
+        <Button
+            android:id="@+id/vetar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ветар"
+            android:background="@android:drawable/btn_default">
+
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:id="@+id/Layout1"
+        android:orientation="horizontal"
+        android:weightSum="20"
+        android:background="@android:color/holo_blue_light">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:id="@+id/Layout2"
+         android:orientation="horizontal"
+         android:weightSum="10"
+         android:background="@android:color/holo_blue_light"
+         android:layout_weight="10"
+         >
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+
+         <ImageView
+             android:layout_width="@dimen/sunce_sirina"
+             android:layout_height="@dimen/sunce_duzina"
+             android:layout_gravity="left"
+
+             android:layout_weight="0"
+             android:background="@color/plava"
+             android:src="@drawable/sunce"
+             />
+
+             <TextView
+             android:id="@+id/textView7"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:layout_weight="0.75"
+             android:textSize="18dp"
+             android:textStyle="bold"
+             android:gravity="bottom"
+                 android:textAlignment="center"
+             android:textColor="@color/black"
+             android:text="Температура: 11" />
+
+             <TextView
+                 android:id="@+id/textView8"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.75"
+                 android:textSize="18dp"
+                 android:textStyle="bold"
+                 android:gravity="center"
+                 android:textColor="@color/black"
+                 android:text="Притисак: 1000" />
+             <TextView
+                 android:id="@+id/textView9"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.75"
+                 android:textSize="18dp"
+                 android:gravity="top"
+                 android:textStyle="bold"
+                 android:textColor="@color/black"
+                 android:text="Влажност ваздуха:44" />
+
+         </LinearLayout>
+
+
+         <TextView
+             android:id="@+id/textView5"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:layout_weight="3"
+             android:background="@android:color/holo_blue_light"
+             android:gravity="top"
+             android:text="Јединица:"
+             android:textAlignment="gravity"
+             android:textColor="@color/black"
+             android:textSize="18dp"
+             android:textStyle="bold" />
+
+         <Spinner
+             android:id="@+id/spinner"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="4"
+             android:gravity="top"
+             android:background="@android:drawable/btn_dropdown"
+             android:spinnerMode="dropdown" />
+
+     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light"
+            android:id="@+id/Layout3"
+            >
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:text="Излазак сунца: 6:47\nЗалазак сунца: 17:45" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Layout4"
+
+            >
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:text="Брзина ветра: 4.1\nПравац: N" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
