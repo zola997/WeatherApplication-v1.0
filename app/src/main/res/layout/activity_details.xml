@@ -24,7 +24,7 @@
             android:gravity="bottom"
             android:textSize="25dp"
             android:inputType="textPersonName"
-            android:text="Град: "
+            android:text="@string/Град"
             android:textStyle="bold"/>
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="top"
-            android:text="Дан :"
+            android:text="@string/Дан"
             android:textColor="@color/black"
             android:textSize="25dp" />
     </LinearLayout>
@@ -52,16 +52,18 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="13dp"
-            android:text="Температура"
-            android:background="@android:drawable/btn_default_small"/>
+            android:text="@string/Температура"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corner2"/>
 
         <Button
             android:id="@+id/sunce"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Излазак и залазак сунца"
-            android:background="@android:drawable/btn_default_small"
+            android:text="@string/Сунце"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corner2"
             />
 
         <Button
@@ -69,8 +71,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Ветар"
-            android:background="@android:drawable/btn_default">
+            android:text="@string/Ветар"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corner2">
 
         </Button>
     </LinearLayout>
@@ -118,7 +121,7 @@
              android:gravity="bottom"
                  android:textAlignment="center"
              android:textColor="@color/black"
-             android:text="Температура: 11" />
+             android:text="@string/_11" />
 
              <TextView
                  android:id="@+id/textView8"
@@ -129,7 +132,7 @@
                  android:textStyle="bold"
                  android:gravity="center"
                  android:textColor="@color/black"
-                 android:text="Притисак: 1000" />
+                 android:text="@string/_1000" />
              <TextView
                  android:id="@+id/textView9"
                  android:layout_width="wrap_content"
@@ -139,7 +142,7 @@
                  android:gravity="top"
                  android:textStyle="bold"
                  android:textColor="@color/black"
-                 android:text="Влажност ваздуха:44" />
+                 android:text="@string/_44" />
 
          </LinearLayout>
 
@@ -151,7 +154,7 @@
              android:layout_weight="3"
              android:background="@android:color/holo_blue_light"
              android:gravity="top"
-             android:text="Јединица:"
+             android:text="@string/Јединица"
              android:textAlignment="gravity"
              android:textColor="@color/black"
              android:textSize="18dp"
@@ -184,7 +187,8 @@
                 android:textColor="@color/black"
 
                 android:layout_weight="1"
-                android:text="Излазак сунца: 6:47\nЗалазак сунца: 17:45" />
+                android:text="@string/_6_47_n_17_45"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -203,7 +207,7 @@
                 android:textColor="@color/black"
 
                 android:layout_weight="1"
-                android:text="Брзина ветра: 4.1\nПравац: N" />
+                android:text="@string/_4_1_n_n" />
         </LinearLayout>
 
 

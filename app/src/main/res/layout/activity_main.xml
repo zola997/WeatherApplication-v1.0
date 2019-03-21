@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drawable_green"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
@@ -18,7 +19,7 @@
         android:textSize="30dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/drawable_green"
 
         />
 
@@ -29,14 +30,12 @@
         android:layout_weight="0.5"
         android:text="Локација за приказ временске прогнозе:"
         android:textStyle="bold"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/drawable_green"
         android:gravity="bottom"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="22dp"
         android:padding="10dp"
-
-
         />
 
     <EditText
@@ -46,13 +45,14 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        android:background="@color/teal"
+        android:background="@drawable/rounded_corner1"
+
         android:layout_weight="0.25"
         android:gravity="center"/>
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/ic_launcher_background"
+      android:background="@drawable/drawable_green"
       >
     <Button
         android:id="@+id/button"

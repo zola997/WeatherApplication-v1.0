@@ -332,6 +332,10 @@
         "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\drawable-xhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_corner1.xml.flat",
+        "source": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\src\\main\\res\\drawable\\rounded_corner1.xml"
+    },
+    {
         "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
@@ -1500,8 +1504,16 @@
         "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable_drawable_green.xml.flat",
+        "source": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\src\\main\\res\\drawable\\drawable_green.xml"
+    },
+    {
         "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_corner.xml.flat",
         "source": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\src\\main\\res\\drawable\\rounded_corner.xml"
+    },
+    {
+        "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_corner2.xml.flat",
+        "source": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\src\\main\\res\\drawable\\rounded_corner2.xml"
     },
     {
         "merged": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_half_black_16dp.png.flat",

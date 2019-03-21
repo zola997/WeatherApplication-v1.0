@@ -15,5 +15,16 @@
     <string name="temperatura_11">Temperatura: 11</string>
     <string name="vla_nost_vazduha_44">vlažnost_vazduha:44</string>
     <string name="prazan_string" />
+    <string name="Град">Град:</string>
+    <string name="Дан">Дан :</string>
+    <string name="Температура">Температура</string>
+    <string name="Сунце">Излазак и залазак сунца</string>
+    <string name="Ветар">Ветар</string>
+    <string name="_11">Температура: 11</string>
+    <string name="_1000">Притисак: 1000</string>
+    <string name="_44">Влажност ваздуха:44</string>
+    <string name="Јединица">Јединица:</string>
+    <string name="_6_47_n_17_45">Излазак сунца: 6:47\n Залазак сунца: 17:45</string>
+    <string name="_4_1_n_n">Брзина ветра: 4.1\n Правац: N</string>
 
 </resources>
