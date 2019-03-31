@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projekat_1</string>
+    <string name="app_name">WeatherForecast-v1.0</string>
     <string name="weatherforecast">WeatherForecast</string>
     <string name="weatherforecast_v1_0">WeatherForecast v1.0</string>
     <string name="title_activity_details">DetailsActivity</string>
@@ -26,5 +26,8 @@
     <string name="Јединица">Јединица:</string>
     <string name="_6_47_n_17_45">Излазак сунца: 6:47\n Залазак сунца: 17:45</string>
     <string name="_4_1_n_n">Брзина ветра: 4.1\n Правац: N</string>
+    <string name="lokacija">Локација за приказ временске прогнозе:</string>
+    <string name="empty" />
+    <string name="prikazi">ПРИКАЖИ</string>
 
 </resources>

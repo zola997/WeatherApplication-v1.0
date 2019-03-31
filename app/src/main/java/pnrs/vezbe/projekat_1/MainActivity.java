@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(editText.getText().toString()) || editText.getText().toString().startsWith(" ")) {
+					editText.setText(R.string.empty);
                     editText.setError("Унесите име града.");
                     return;
 

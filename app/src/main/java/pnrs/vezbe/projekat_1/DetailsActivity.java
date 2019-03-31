@@ -16,14 +16,11 @@ import java.util.Date;
 
 public class DetailsActivity<intent> extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-
-
     String celzijus ="Температура: 11";
     String farenhajt="Температура: 51.8";
     TextView ime_grada,dan;
     LinearLayout layout2,layout3,layout4;
     Button temp,sunce,vetar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         ime_grada=(TextView) findViewById(R.id.TextView1);
         dan=(TextView) findViewById(R.id.textView4);
         ime_grada.setText(grad);
-        //dan.setText("ДАН: " +formattedDate.toUpperCase());
+
         dan.setText(formattedDate.toUpperCase()+" "+filename);
         final TextView temperatura = (TextView) findViewById(R.id.textView7);
         String[] items = new String[]{"F", "C"};
@@ -90,9 +87,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         temp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  temp.setBackgroundColor(Color.BLUE);
-              // sunce.setBackgroundColor(Color.parseColor("#CAD1D3"));
-                // vetar.setBackgroundColor(Color.parseColor("#CAD1D3"));
+
                 temp.setTextColor(Color.BLACK);
                 sunce.setTextColor(Color.WHITE);
                 vetar.setTextColor(Color.WHITE);
@@ -107,9 +102,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         sunce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  temp.setBackgroundColor(Color.parseColor("#CAD1D3"));
-              //  sunce.setBackgroundColor(Color.BLUE);
-               // vetar.setBackgroundColor(Color.parseColor("#CAD1D3"));
+
                 sunce.setTextColor(Color.BLACK);
                 temp.setTextColor(Color.WHITE);
                 vetar.setTextColor(Color.WHITE);
@@ -122,9 +115,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         vetar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  temp.setBackgroundColor(Color.parseColor("#CAD1D3"));
-              //  sunce.setBackgroundColor(Color.parseColor("#CAD1D3"));
-              //  vetar.setBackgroundColor(Color.BLUE);
 
                 vetar.setTextColor(Color.BLACK);
                 temp.setTextColor(Color.WHITE);
