@@ -865,8 +865,9 @@ id barrier
 id beginning
 id blocking
 id bottom
-id button
+id buttonAdd
 id buttonPanel
+id buttonRemove
 id cancel_action
 id center
 id center_horizontal
@@ -874,6 +875,7 @@ id center_vertical
 id chains
 id checkbox
 id chronometer
+id city_name
 id clip_horizontal
 id clip_vertical
 id collapseActionView
@@ -892,7 +894,6 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
-id editText
 id edit_query
 id end
 id end_padder
@@ -925,6 +926,7 @@ id line1
 id line3
 id listMode
 id list_item
+id listview
 id masked
 id media_actions
 id message
@@ -948,6 +950,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id radioButton
 id right
 id right_icon
 id right_side
@@ -1002,8 +1005,8 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textView
 id textView10
+id textView11
 id textView2
-id textView3
 id textView4
 id textView5
 id textView6
@@ -1073,7 +1076,6 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_details
 layout activity_main
-layout content_details
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -1088,6 +1090,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout element_row
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1109,6 +1112,9 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
+string Beograd
+string NoviSad
+string Sabac
 string _1000
 string _11
 string _44
