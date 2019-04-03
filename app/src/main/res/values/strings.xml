@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">WeatherForecast-v1.0</string>
-    <string name="weatherforecast">WeatherForecast</string>
-    <string name="weatherforecast_v1_0">WeatherForecast v1.0</string>
+    <string name="app_name">WeatherForecast-v1.1</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="empty_string"/>
     <string name="dan_subota">DAN : Subota</string>
@@ -19,7 +17,7 @@
     <string name="Дан">Дан :</string>
     <string name="Температура">Temperatura</string>
     <string name="Сунце">Izlazak i zalazak sunca</string>
-    <string name="Ветар">Vetarр</string>
+    <string name="Ветар">Vetar</string>
     <string name="_11">Temperatura: 11</string>
     <string name="_1000">Pritisak: 1000</string>
     <string name="_44">Vlažnost vazduha: 44</string>

@@ -821,6 +821,7 @@ drawable notify_panel_notification_icon_bg
 drawable rounded_corner
 drawable rounded_corner1
 drawable rounded_corner2
+drawable shadow
 drawable sunce
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -867,7 +868,6 @@ id blocking
 id bottom
 id buttonAdd
 id buttonPanel
-id buttonRemove
 id cancel_action
 id center
 id center_horizontal
@@ -1176,8 +1176,6 @@ string title_activity_details
 string vetar
 string vla_nost_vazduha
 string vla_nost_vazduha_44
-string weatherforecast
-string weatherforecast_v1_0
 string ????????
 string ?????
 string ????

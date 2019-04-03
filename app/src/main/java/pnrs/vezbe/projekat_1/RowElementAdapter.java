@@ -2,7 +2,7 @@ package pnrs.vezbe.projekat_1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.inputmethodservice.Keyboard;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class RowElementAdapter extends BaseAdapter {
 
 
-
     private Context mContext;
     private ArrayList<RowElement> mCities;
     private RadioButton button = null;
@@ -26,29 +25,32 @@ public class RowElementAdapter extends BaseAdapter {
         mCities = new ArrayList<RowElement>();
         }
 
-    public void addCity(RowElement element){
-        mCities.add(element);
-        notifyDataSetChanged();
+    public boolean addCity(RowElement element){
+        Boolean b =isCityInstanced(element.city_name);
+        if (!b) {
+            mCities.add(element);
+            notifyDataSetChanged();
+            return true;
+        }
+        else return false;
     }
 
-    public String removeCity(String grad){
+    public void removeCity(int element){
 
-        if(mCities.contains(grad)){
-            mCities.remove(grad);
+            mCities.remove(element);
             notifyDataSetChanged();
-            return "Uspešno izbrisan grad.";
-        }
-
-        else {
-            notifyDataSetChanged();
-            return "Grad nije pronađen";
-        }
 
     }
+    public boolean isCityInstanced(String city){
+        for(RowElement element : mCities)
+        {
+              if(element.city_name.toUpperCase().equals(city.toUpperCase())){
+                  return true;
+            }
+        }
+        return false;
 
-
-
-
+    }
     @Override
     public int getCount() {
         return mCities.size();
@@ -64,8 +66,6 @@ public class RowElementAdapter extends BaseAdapter {
         }
         return rv;
     }
-
-
 
     @Override
     public long getItemId(int i) {
@@ -85,32 +85,26 @@ public class RowElementAdapter extends BaseAdapter {
 
         }
         RowElement element = (RowElement) getItem(i);
+
         final ViewHolder holder = (ViewHolder) view.getTag();
         holder.city.setText(element.city_name);
 
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent myIntent = new Intent(mContext, DetailsActivity.class);
-                Bundle b = new Bundle();
-                b.putString("grad", holder.city.getText().toString());
-                myIntent.putExtras(b);
-                mContext.startActivity(myIntent);
-
-                button = (RadioButton)v;
+                String key="grad";
+                button = (RadioButton) v;
                 button.setChecked(false);
-
+                Intent intent = new Intent(mContext,DetailsActivity.class);
+                intent.putExtra(key, holder.city.getText().toString());
+                mContext.startActivity(intent);
             }
         });
 
         return view;
     }
-
-
     private class ViewHolder{
         public RadioButton button=null;
         public TextView city=null;
-
     }
 }

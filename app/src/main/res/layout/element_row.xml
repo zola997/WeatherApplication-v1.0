@@ -11,13 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:buttonTint="@color/black"
-        android:text="" />
+        android:text=""
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="19"
+        android:layout_weight="20"
+        android:textAlignment="textStart"
         android:textSize="20dp"
-        android:text="TextView" />
+        android:textAppearance="@drawable/shadow"
+        android:text="" />
 </LinearLayout>
