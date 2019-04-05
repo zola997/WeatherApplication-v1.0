@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RowElementAdapter extends BaseAdapter {
 
@@ -73,13 +76,14 @@ public class RowElementAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
         View view = convertView;
         if (view == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view= inflater.inflate(R.layout.element_row,null);
             ViewHolder holder = new ViewHolder();
             holder.button=(RadioButton) view.findViewById(R.id.radioButton);
+            holder.deleteButton=(Button) view.findViewById(R.id.ButtonDelete);
             holder.city=(TextView) view.findViewById(R.id.textView);
             view.setTag(holder);
 
@@ -88,6 +92,15 @@ public class RowElementAdapter extends BaseAdapter {
 
         final ViewHolder holder = (ViewHolder) view.getTag();
         holder.city.setText(element.city_name);
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                removeCity(i);
+                view.clearFocus();
+
+            }
+        });
 
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,5 +119,6 @@ public class RowElementAdapter extends BaseAdapter {
     private class ViewHolder{
         public RadioButton button=null;
         public TextView city=null;
+        public Button  deleteButton=null;
     }
 }

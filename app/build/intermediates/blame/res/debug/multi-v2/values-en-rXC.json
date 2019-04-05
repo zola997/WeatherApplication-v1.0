@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Laza\\Desktop\\Projekat_1\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rXC\\values-en-rXC.xml",
+            "outputFile": "D:\\ra205-2016\\Projekat\\WeatherApplication-v2.0\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rXC\\values-en-rXC.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\values-en-rXC\\values-en-rXC.xml",
+                    "source": "C:\\Users\\student\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\5816d6c2de5c991ce0b34ffe42d61606\\res\\values-en-rXC\\values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button buttonMainAdd;
+    Button buttonDelete;
     EditText city;
     ListView city_list;
     RowElementAdapter adapter;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         city_list = (ListView) findViewById(R.id.listview);
         city_list.setAdapter(adapter);
+
         city_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override

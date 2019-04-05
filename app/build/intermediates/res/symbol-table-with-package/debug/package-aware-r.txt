@@ -826,6 +826,7 @@ drawable sunce
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
+id ButtonDelete
 id CTRL
 id FUNCTION
 id Layout1
