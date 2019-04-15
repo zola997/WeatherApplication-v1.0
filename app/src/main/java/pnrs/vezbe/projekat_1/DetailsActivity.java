@@ -10,22 +10,33 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 public class DetailsActivity<intent> extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    String celzijus ="Температура: 11";
-    String farenhajt="Температура: 51.8";
+    double celzijus;
+    double farenhajt;
     TextView ime_grada,dan;
     LinearLayout layout2,layout3,layout4;
     Button temp,sunce,vetar;
+    String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset;
+    private Http http;
+    public static String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    public static String API_KEY = "&APPID=6db369e4771614a635375634c3e40b8d";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String grad;
+        final String grad;
 
         if (getIntent().hasExtra("grad")) {
             grad = getIntent().getStringExtra("grad");
@@ -41,11 +52,46 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         SimpleDateFormat df = new SimpleDateFormat("EE");
         String formattedDate = df.format(c.getTime());
 
+        //////////////// HTTP //////////////
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    final String URL = API_URL + grad + API_KEY;
+                    JSONObject jsonObject = http.getJSONObjectFromURL(URL);
+                    JSONObject main = (JSONObject) jsonObject.get("main");
+                    temp_kelvin=main.getString("temp");
+                    pressure=main.getString("pressure");
+                    humidity=main.getString("humidity");
+                    JSONObject wind = (JSONObject) jsonObject.get("wind");
+                    wind_dir = wind.getString("deg");
+                    wind_speed = wind.getString("speed");
+                    JSONObject sys = (JSONObject) jsonObject.get("sys");
+                    sunrise = sys.getString("sunrise");
+                    sunset = sys.getString("sunset");
+
+
+
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+
+          ////////////////////////////////////////
         setContentView(R.layout.activity_details);
         Spinner dropdown = (Spinner)findViewById(R.id.spinner);
         ime_grada=(TextView) findViewById(R.id.TextView1);
         dan=(TextView) findViewById(R.id.textView4);
         ime_grada.setText(grad);
+        celzijus=Integer.parseInt(temp_kelvin) - 273.15;
+        farenhajt= Integer.parseInt(temp_kelvin)*(9/5) -459.67;
 
         dan.setText(formattedDate.toUpperCase()+" "+filename);
         final TextView temperatura = (TextView) findViewById(R.id.textView7);
@@ -58,10 +104,10 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                String string = adapterView.getSelectedItem().toString();
                switch (string){
                    case "F":
-                       temperatura.setText(farenhajt+" °F");
+                       temperatura.setText(String.valueOf(farenhajt) +" °F");
                        break;
                    case "C":
-                       temperatura.setText(celzijus+" °C");
+                       temperatura.setText(String.valueOf(celzijus)+" °C");
                        break;
                        default:
                            break;
@@ -95,8 +141,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                 layout2.setVisibility(View.VISIBLE);
                 layout3.setVisibility(View.GONE);
                 layout4.setVisibility(View.GONE);
-
-
             }
         });
         sunce.setOnClickListener(new View.OnClickListener() {
@@ -136,3 +180,5 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
 }
+
+
