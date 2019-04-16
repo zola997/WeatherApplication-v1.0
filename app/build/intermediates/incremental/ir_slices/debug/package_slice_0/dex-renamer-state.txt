@@ -1,4 +1,1 @@
-#Fri Apr 05 09:16:53 CEST 2019
-base.0=D\:\\ra205-2016\\Projekat\\WeatherApplication-v2.0\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
+#Tue Apr 16 23:28:34 CEST 2019

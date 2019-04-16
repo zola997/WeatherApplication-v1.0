@@ -30,5 +30,6 @@
     <string name="Sabac">Šabac</string>
     <string name="NoviSad">Novi Sad</string>
     <string name="Beograd">Beograd</string>
+    <string name="unit">Unit:</string>
 
 </resources>

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\ra205-2016\\Projekat\\WeatherApplication-v2.0\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ja\\values-ja.xml",
+            "outputFile": "C:\\Users\\Laza\\Desktop\\WeatherApp v1.2\\WeatherApplication-v1.1\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ja\\values-ja.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\student\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\5816d6c2de5c991ce0b34ffe42d61606\\res\\values-ja\\values-ja.xml",
+                    "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\values-ja\\values-ja.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\student\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\33fecb20655e97a9e42672a1fcb36d8a\\res\\values-ja\\values-ja.xml",
+                    "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\da69985f47c47e14ae1d49ac3e4cb5cf\\res\\values-ja\\values-ja.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

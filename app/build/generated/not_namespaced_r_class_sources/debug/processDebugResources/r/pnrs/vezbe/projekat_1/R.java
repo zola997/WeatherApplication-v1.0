@@ -4024,15 +4024,16 @@ public final class R {
     public static final int temperatura=0x7f0c003a;
     public static final int temperatura_11=0x7f0c003b;
     public static final int title_activity_details=0x7f0c003c;
-    public static final int vetar=0x7f0c003d;
-    public static final int vla_nost_vazduha=0x7f0c003e;
-    public static final int vla_nost_vazduha_44=0x7f0c003f;
-    public static final int Јединица=0x7f0c0040;
-    public static final int Ветар=0x7f0c0041;
-    public static final int Град=0x7f0c0042;
-    public static final int Дан=0x7f0c0043;
-    public static final int Сунце=0x7f0c0044;
-    public static final int Температура=0x7f0c0045;
+    public static final int unit=0x7f0c003d;
+    public static final int vetar=0x7f0c003e;
+    public static final int vla_nost_vazduha=0x7f0c003f;
+    public static final int vla_nost_vazduha_44=0x7f0c0040;
+    public static final int Јединица=0x7f0c0041;
+    public static final int Ветар=0x7f0c0042;
+    public static final int Град=0x7f0c0043;
+    public static final int Дан=0x7f0c0044;
+    public static final int Сунце=0x7f0c0045;
+    public static final int Температура=0x7f0c0046;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f0d0000;

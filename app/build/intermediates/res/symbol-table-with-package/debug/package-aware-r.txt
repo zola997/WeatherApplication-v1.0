@@ -1174,6 +1174,7 @@ string status_bar_notification_info_overflow
 string temperatura
 string temperatura_11
 string title_activity_details
+string unit
 string vetar
 string vla_nost_vazduha
 string vla_nost_vazduha_44

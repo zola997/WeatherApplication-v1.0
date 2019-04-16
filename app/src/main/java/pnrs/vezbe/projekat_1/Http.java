@@ -48,7 +48,7 @@ public class Http {
     /*HTTP get json object*/
     public JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
         HttpURLConnection urlConnection = null;
-        java.net.URL url = new URL(urlString);
+        URL url = new URL(urlString);
         urlConnection = (HttpURLConnection) url.openConnection();
         /*header fields*/
         urlConnection.setRequestMethod("GET");
@@ -73,6 +73,7 @@ public class Http {
         int responseCode = urlConnection.getResponseCode();
         urlConnection.disconnect();
         return responseCode == SUCCESS ? new JSONObject(jsonString) : null;
+
     }
 }
 

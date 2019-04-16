@@ -1,5 +1,6 @@
 package pnrs.vezbe.projekat_1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,9 +31,9 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
     double celzijus;
     double farenhajt;
-    TextView ime_grada,dan;
+    TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar;
     LinearLayout layout2,layout3,layout4;
-    Button temp,sunce,vetar;
+    Button temp,sunce,vetar_button;
     String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset;
     private Http http;
     public static String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -51,6 +57,12 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("EE");
         String formattedDate = df.format(c.getTime());
+        http = new Http();
+
+        pritisak=(TextView) findViewById(R.id.textView8);
+        vlaznost=(TextView) findViewById(R.id.textView9);
+        izlazak_zalazak=(TextView) findViewById(R.id.textView6);
+        vetar=(TextView) findViewById(R.id.textView10);
 
         //////////////// HTTP //////////////
 
@@ -60,8 +72,13 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                 try{
                     final String URL = API_URL + grad + API_KEY;
                     JSONObject jsonObject = http.getJSONObjectFromURL(URL);
+                    if (jsonObject==null){
+
+                    }
                     JSONObject main = (JSONObject) jsonObject.get("main");
                     temp_kelvin=main.getString("temp");
+                    celzijus=Double.parseDouble(temp_kelvin) - 273.15;
+                    farenhajt= celzijus*9/5+32;
                     pressure=main.getString("pressure");
                     humidity=main.getString("humidity");
                     JSONObject wind = (JSONObject) jsonObject.get("wind");
@@ -70,7 +87,47 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                     JSONObject sys = (JSONObject) jsonObject.get("sys");
                     sunrise = sys.getString("sunrise");
                     sunset = sys.getString("sunset");
+                    pritisak.setText("Pritisak: "+String.valueOf(pressure)+"mb");
+                    vlaznost.setText("Vlažnost: " +String.valueOf(humidity) + "%");
 
+                    Date date = new java.util.Date(Integer.parseInt(sunrise)*1000L);
+
+                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+                    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+                    String formattedDate = sdf.format(date);
+
+                    Date date1 = new java.util.Date(Integer.parseInt(sunset)*1000L);
+
+                    SimpleDateFormat sdf1 = new java.text.SimpleDateFormat("HH:mm:ss");
+                    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+                    String formattedDate1 = sdf1.format(date1);
+                    izlazak_zalazak.setText("Izlazak sunca: " +formattedDate + "\n" + "Zalazak sunca: " +formattedDate1);
+
+                    Integer pravac = Integer.parseInt(wind_dir);
+                    if (pravac >=337 || pravac<23){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: N");
+                    }
+                    else if(pravac >=23 && pravac<68){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: NE");
+                    }
+                    else if(pravac >=68 && pravac<113){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: E");
+                    }
+                    else if(pravac >=113 && pravac<158){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: SE");
+                    }
+                    else if(pravac>=158 && pravac<203){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: S" );
+                    }
+                    else if(pravac>=203 && pravac<248){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: SW");
+                    }
+                    else if(pravac>=248 && pravac<293){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: W");
+                    }
+                    else if(pravac>=293 && pravac<337){
+                        vetar.setText("Brzina vetra: " + wind_speed +"m/s\n"+"Pravac: NW");
+                    }
 
 
                 }
@@ -82,19 +139,19 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             }
         }).start();
 
-
-
           ////////////////////////////////////////
         setContentView(R.layout.activity_details);
         Spinner dropdown = (Spinner)findViewById(R.id.spinner);
         ime_grada=(TextView) findViewById(R.id.TextView1);
         dan=(TextView) findViewById(R.id.textView4);
         ime_grada.setText(grad);
-        celzijus=Integer.parseInt(temp_kelvin) - 273.15;
-        farenhajt= Integer.parseInt(temp_kelvin)*(9/5) -459.67;
+        pritisak=(TextView) findViewById(R.id.textView8);
+        vlaznost=(TextView) findViewById(R.id.textView9);
+        izlazak_zalazak=findViewById(R.id.textView6);
+        vetar=(TextView) findViewById(R.id.textView10);
+        final TextView temperatura = (TextView) findViewById(R.id.textView7);
 
         dan.setText(formattedDate.toUpperCase()+" "+filename);
-        final TextView temperatura = (TextView) findViewById(R.id.textView7);
         String[] items = new String[]{"F", "C"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
@@ -104,10 +161,12 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                String string = adapterView.getSelectedItem().toString();
                switch (string){
                    case "F":
-                       temperatura.setText(String.valueOf(farenhajt) +" °F");
+                       NumberFormat form = new DecimalFormat("#0.0");
+                       temperatura.setText("Temp:" + form.format(farenhajt) + " °F");
                        break;
                    case "C":
-                       temperatura.setText(String.valueOf(celzijus)+" °C");
+                       NumberFormat form1 = new DecimalFormat("#0.0");
+                       temperatura.setText("Temp:" + form1.format(celzijus) + " °C");
                        break;
                        default:
                            break;
@@ -118,9 +177,10 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
        });
 
+
         temp =(Button) findViewById(R.id.temperatura);
         sunce=(Button) findViewById(R.id.sunce);
-        vetar =(Button) findViewById(R.id.vetar);
+        vetar_button =(Button) findViewById(R.id.vetar);
 
         layout2 =(LinearLayout) findViewById(R.id.Layout2);
         layout3 =(LinearLayout) findViewById(R.id.Layout3);
@@ -136,7 +196,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
                 temp.setTextColor(Color.BLACK);
                 sunce.setTextColor(Color.WHITE);
-                vetar.setTextColor(Color.WHITE);
+                vetar_button.setTextColor(Color.WHITE);
 
                 layout2.setVisibility(View.VISIBLE);
                 layout3.setVisibility(View.GONE);
@@ -149,18 +209,18 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
                 sunce.setTextColor(Color.BLACK);
                 temp.setTextColor(Color.WHITE);
-                vetar.setTextColor(Color.WHITE);
+                vetar_button.setTextColor(Color.WHITE);
 
                 layout2.setVisibility(View.GONE);
                 layout3.setVisibility(View.VISIBLE);
                 layout4.setVisibility(View.GONE);
             }
         });
-        vetar.setOnClickListener(new View.OnClickListener() {
+        vetar_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                vetar.setTextColor(Color.BLACK);
+                vetar_button.setTextColor(Color.BLACK);
                 temp.setTextColor(Color.WHITE);
                 sunce.setTextColor(Color.WHITE);
 
