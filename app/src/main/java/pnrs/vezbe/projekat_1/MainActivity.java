@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button buttonMainAdd;
-    Button buttonDelete;
     EditText city;
     ListView city_list;
     RowElementAdapter adapter;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             city.setText("");
                             city.setError(null);
                         }
-                    }, 2000);
+                    }, 1500);
 
                     return;
                 } else {
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 city.setText("");
                                 city.setError(null);
                             }
-                        }, 2000);
+                        }, 1500);
 
                     } else {
                         final Handler handler = new Handler();

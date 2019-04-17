@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherForecast-v1.1</string>
+    <string name="app_name">WeatherForecast-v1.3</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="empty_string"/>
     <string name="dan_subota">DAN : Subota</string>
@@ -27,9 +27,9 @@
     <string name="lokacija">Локација за приказ временске прогнозе:</string>
     <string name="empty" />
     <string name="prikazi">ПРИКАЖИ</string>
-    <string name="Sabac">Šabac</string>
+    <string name="Sabac">Sabac</string>
     <string name="NoviSad">Novi Sad</string>
-    <string name="Beograd">Beograd</string>
+    <string name="Beograd">Belgrade</string>
     <string name="unit">Unit:</string>
 
 </resources>
