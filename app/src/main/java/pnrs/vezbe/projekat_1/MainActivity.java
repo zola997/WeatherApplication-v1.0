@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button buttonMainAdd;
@@ -18,6 +19,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String error;
+        if (getIntent().hasExtra("error")) {
+            error = getIntent().getStringExtra("error");
+            Toast toast = Toast.makeText(this, error, Toast.LENGTH_LONG);
+            toast.show();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonMainAdd = (Button) findViewById(R.id.buttonAdd);

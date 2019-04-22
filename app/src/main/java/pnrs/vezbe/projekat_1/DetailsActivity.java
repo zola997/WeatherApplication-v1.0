@@ -1,6 +1,7 @@
 package pnrs.vezbe.projekat_1;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,79 +64,81 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         vetar=(TextView) findViewById(R.id.textView10);
         slika=(ImageView) findViewById(R.id.slika);
 
-
-        //////////////// HTTP //////////////
-
         new Thread(new Runnable() {
             @SuppressLint("SetTextI18n")
             @Override
             public void run() {
-                try{
-                    final String URL = API_URL + grad + API_KEY;
-                    pritisak=(TextView) findViewById(R.id.textView8);
-                    vlaznost=(TextView) findViewById(R.id.textView9);
-                    izlazak_zalazak=(TextView) findViewById(R.id.textView6);
-                    vetar=(TextView) findViewById(R.id.textView10);
-                    JSONObject jsonObject = http.getJSONObjectFromURL(URL);
-                    JSONObject wind = (JSONObject) jsonObject.get("wind");
-                    JSONObject main = (JSONObject) jsonObject.get("main");
+                try {
 
-                            temp_kelvin = main.getString("temp");
-                            celzijus = Double.parseDouble(temp_kelvin) - 273.15;
-                            farenhajt = celzijus * 9 / 5 + 32;
-                            try {
-                                pressure = main.getString("pressure");
-                            }
-                            catch (JSONException e){
-                                pritisak.setText("Pressure data not available");
-                            }
-                            try{
-                            humidity = main.getString("humidity");
+                    final String URL = API_URL + grad + API_KEY;
+                    pritisak = (TextView) findViewById(R.id.textView8);
+                    vlaznost = (TextView) findViewById(R.id.textView9);
+                    izlazak_zalazak = (TextView) findViewById(R.id.textView6);
+                    vetar = (TextView) findViewById(R.id.textView10);
+
+                    JSONObject jsonObject = http.getJSONObjectFromURL(URL);
+                    if (jsonObject == null) {
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        intent.putExtra("error","Unable to connect.");
+                        getApplicationContext().startActivity(intent);
+
+
+                    } else {
+
+                        JSONObject wind = (JSONObject) jsonObject.get("wind");
+                        JSONObject main = (JSONObject) jsonObject.get("main");
+
+                        temp_kelvin = main.getString("temp");
+                        celzijus = Double.parseDouble(temp_kelvin) - 273.15;
+                        farenhajt = celzijus * 9 / 5 + 32;
+                        try {
+                            pressure = main.getString("pressure");
+                        } catch (JSONException e) {
+                            pritisak.setText("Pressure data not available");
                         }
-                        catch(JSONException e){
+                        try {
+                            humidity = main.getString("humidity");
+                        } catch (JSONException e) {
                             vlaznost.setText("Humidity data not available");
                             e.printStackTrace();
                         }
                         try {
 
                             wind_dir = wind.getString("deg");
-                        }
-                        catch(JSONException e){
+                        } catch (JSONException e) {
                             vetar.setText("Wind direction not available.");
                             e.printStackTrace();
                         }
-                        try{
-                            wind_speed=wind.getString("speed");
-                        }
-                        catch (JSONException e){
+                        try {
+                            wind_speed = wind.getString("speed");
+                        } catch (JSONException e) {
                             vetar.setText("Wind speed not available.");
                             e.printStackTrace();
                         }
 
                         JSONObject sys = (JSONObject) jsonObject.get("sys");
-                            sunrise = sys.getString("sunrise");
-                            sunset = sys.getString("sunset");
-                            pritisak.setText("Pritisak: " + String.valueOf(pressure) + "mb");
-                            vlaznost.setText("Vlažnost: " + String.valueOf(humidity) + "%");
-                        JSONArray weather =(JSONArray) jsonObject.get("weather");
+                        sunrise = sys.getString("sunrise");
+                        sunset = sys.getString("sunset");
+                        pritisak.setText("Pritisak: " + String.valueOf(pressure) + "mb");
+                        vlaznost.setText("Vlažnost: " + String.valueOf(humidity) + "%");
+                        JSONArray weather = (JSONArray) jsonObject.get("weather");
                         JSONObject object = weather.getJSONObject(0);
-                        weather1=object.getString("main");
-                        slika=(ImageView) findViewById(R.id.slika);
+                        weather1 = object.getString("main");
+                        slika = (ImageView) findViewById(R.id.slika);
 
-
-                            switch(weather1){
-                                case "Rain":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.rain_icon));
-                                    break;
-                                case "Clouds":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.clouds_icon));
-                                    break;
-                                case "Clear":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.sun_icon));
-                                    break;
-                                default:
-                                    break;
-                            }
+                        switch (weather1) {
+                            case "Rain":
+                                slika.setImageDrawable(getResources().getDrawable(drawable.rain_icon));
+                                break;
+                            case "Clouds":
+                                slika.setImageDrawable(getResources().getDrawable(drawable.clouds_icon));
+                                break;
+                            case "Clear":
+                                slika.setImageDrawable(getResources().getDrawable(drawable.sun_icon));
+                                break;
+                            default:
+                                break;
+                        }
 
                         Date date = new java.util.Date(Integer.parseInt(sunrise) * 1000L);
 
@@ -151,7 +153,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                         String formattedDate1 = sdf1.format(date1);
 
                         izlazak_zalazak.setText("Izlazak sunca: " + formattedDate + "\n" + "Zalazak sunca: " + formattedDate1);
-                        if (wind_dir!=null && wind_speed!=null) {
+                        if (wind_dir != null && wind_speed != null) {
                             Double pravac = Double.parseDouble(wind_dir);
                             if (pravac >= 337 || pravac < 23) {
                                 vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: N");
@@ -170,11 +172,9 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                             } else if (pravac >= 293 && pravac < 337) {
                                 vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: NW");
                             }
-                        }
-                        else if (wind_speed!=null && wind_dir==null){
-                            vetar.setText("Brzina vetra: "+wind_speed+"Wind direction not available.\n");
-                        }
-                        else if(wind_speed==null && wind_dir!=null){
+                        } else if (wind_speed != null && wind_dir == null) {
+                            vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Wind direction not available.");
+                        } else if (wind_speed == null && wind_dir != null) {
                             Double pravac = Double.parseDouble(wind_dir);
                             if (pravac >= 337 || pravac < 23) {
                                 vetar.setText("Wind speed not available.\n" + "Pravac: N");
@@ -183,7 +183,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                             } else if (pravac >= 68 && pravac < 113) {
                                 vetar.setText("Wind speed not available.\n" + "Pravac: E");
                             } else if (pravac >= 113 && pravac < 158) {
-                                vetar.setText("Wind speed not available.\n"+ "Pravac: SE");
+                                vetar.setText("Wind speed not available.\n" + "Pravac: SE");
                             } else if (pravac >= 158 && pravac < 203) {
                                 vetar.setText("Wind speed not available.\n" + "Pravac: S");
                             } else if (pravac >= 203 && pravac < 248) {
@@ -194,6 +194,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                                 vetar.setText("Wind speed not available.\n" + "Pravac: NW");
                             }
                         }
+                    }
                 }
                 catch (JSONException e){
                     e.printStackTrace();
@@ -203,7 +204,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             }
         }).start();
 
-        ///////////////////////////////////
+
         setContentView(R.layout.activity_details);
         Spinner dropdown = (Spinner)findViewById(R.id.spinner);
         ime_grada=(TextView) findViewById(R.id.TextView1);
