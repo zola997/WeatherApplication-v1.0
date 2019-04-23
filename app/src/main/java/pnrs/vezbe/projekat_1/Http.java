@@ -42,6 +42,35 @@ public class Http {
         return responseCode == SUCCESS ? new JSONObject(jsonString) : null;
 
     }
+    public String getIcon(String urlString) throws IOException, JSONException{
+        HttpURLConnection urlConnection = null;
+        URL url = new URL(urlString);
+        urlConnection = (HttpURLConnection) url.openConnection();
+        /*header fields*/
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setRequestProperty("Accept", "application/json");
+        urlConnection.setReadTimeout(10000 /* milliseconds */);
+        urlConnection.setConnectTimeout(15000 /* milliseconds */);
+        try {
+            urlConnection.connect();
+        } catch (IOException e) {
+            return null;
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        br.close();
+
+        String jsonString = sb.toString();
+        Log.d("HTTP GET", "JSON obj- " + jsonString);
+        //int responseCode = urlConnection.getResponseCode();
+        urlConnection.disconnect();
+        return jsonString;
+
+    }
 }
 
 

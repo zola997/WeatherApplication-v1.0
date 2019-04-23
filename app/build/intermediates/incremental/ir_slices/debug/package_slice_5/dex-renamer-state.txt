@@ -1,4 +1,1 @@
-#Mon Apr 22 22:35:34 CEST 2019
-base.0=C\:\\Users\\Laza\\Desktop\\WeatherApp v1.3\\WeatherApplication-v1.1\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\5
-path.0=classes.dex
-renamed.0=classes.dex
+#Tue Apr 23 09:21:06 CEST 2019
