@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,10 +69,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             @Override
             public void run() {
                 try {
-                    String url_icon = "http://openweathermap.org/img/w/10d.png";
-
-                    String iconObject = http.getIcon(url_icon);
-                    Log.d("HTTP GET", "JSON obj- " + iconObject);
 
                     final String URL = API_URL + grad + API_KEY;
                     pritisak = (TextView) findViewById(R.id.textView8);
@@ -211,7 +203,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                 }
             }
         }).start();
-
 
         setContentView(R.layout.activity_details);
         Spinner dropdown = (Spinner)findViewById(R.id.spinner);
