@@ -9,6 +9,10 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".StatisticsActivity"
+            android:label="StatisticsActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"

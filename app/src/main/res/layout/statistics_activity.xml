@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/statistics_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/drawable_green"
@@ -15,7 +16,7 @@
         android:layout_weight="1"
         android:textSize="50dp"
         android:text="TextView"
-        android:background="@drawable/gradient-wallpaper-21"
+
         />
 
     <TextView
@@ -23,20 +24,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:text="Poslednja nedelja:"
+        android:text=" Poslednja nedelja:"
         android:textSize="25dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:weightSum="5"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/drawable_rounded_green">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:background="@drawable/drawable_rounded_green"
             android:weightSum="8">
 
             <TextView
@@ -44,73 +47,82 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dan"
-                 android:textSize="20dp"
+                 android:textSize="19dp"
                 android:textAlignment="center"
+
                 android:padding="5dp"
+                android:background="@drawable/drawable_rounded_green"
 
             />
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/pon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ponedeljak"
-                android:textSize="20dp"
+                android:text=" Ponedeljak"
+                android:textSize="19dp"
+                android:clickable="true"
+                android:background="@drawable/drawable_rounded_green"
+                android:onClick="onClick"/>
+
+            <TextView
+                android:id="@+id/uto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Utorak"
+                android:textSize="19dp"
+                android:background="@drawable/drawable_rounded_green"
                 android:clickable="true"
                 android:onClick="onClick"/>
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/sre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Utorak"
-                android:textSize="20dp"
+                android:text=" Sreda"
+                android:textSize="19dp"
+                android:background="@drawable/drawable_rounded_green"
                 android:clickable="true"
                 android:onClick="onClick"/>
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/cet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sreda"
-                android:textSize="20dp"
+                android:text=" Četvrtak"
+                android:textSize="19dp"
                 android:clickable="true"
+                android:background="@drawable/drawable_rounded_green"
                 android:onClick="onClick"/>
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/pet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Četvrtak"
-                android:textSize="20dp"
+                android:text=" Petak"
+                android:textSize="19dp"
                 android:clickable="true"
-                android:onClick="onClick"/>
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Petak"
-                android:textSize="20dp"
-                android:clickable="true"
+                android:background="@drawable/drawable_rounded_green"
                 android:onClick="onClick"
                 />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subota"
-                android:textSize="20dp"
+                android:text=" Subota"
+                android:textSize="19dp"
+                android:background="@drawable/drawable_rounded_green"
                 android:clickable="true"
                 android:onClick="onClick"/>
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/ned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nedelja"
-                android:textSize="20dp"
+                android:text=" Nedelja"
+                android:textSize="19dp"
+                android:background="@drawable/drawable_rounded_green"
                 android:clickable="true"
                 android:onClick="onClick"/>
 
@@ -119,76 +131,86 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:background="@drawable/drawable_rounded_green"
             android:weightSum="3">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/drawable_rounded_green"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:text="Temp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:padding="5dp"/>
 
                 <TextView
                     android:id="@+id/temp_pon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_uto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_sre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_cet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_pet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
 
                 <TextView
                     android:id="@+id/temp_ned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textAlignment="center"
+                    android:background="@drawable/drawable_rounded_green"
                     android:text="TextVie" />
             </LinearLayout>
 
@@ -196,12 +218,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/drawable_rounded_green"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/pressure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:text="Pressure"
                     android:textAlignment="center"
                     android:padding="5dp"/>
@@ -210,7 +234,8 @@
                     android:id="@+id/press_pon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -218,7 +243,8 @@
                     android:id="@+id/press_uto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -226,7 +252,8 @@
                     android:id="@+id/press_sre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -234,7 +261,8 @@
                     android:id="@+id/press_cet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -242,7 +270,8 @@
                     android:id="@+id/press_pet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -250,7 +279,8 @@
                     android:id="@+id/press_sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -258,7 +288,8 @@
                     android:id="@+id/press_ned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:textSize="19dp"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -268,13 +299,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/drawable_rounded_green"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/humidity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="Humidity"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
+                    android:text="Hum."
                     android:textAlignment="center"
                     android:padding="5dp"/>
 
@@ -282,7 +315,8 @@
                     android:id="@+id/hum_pon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -290,7 +324,8 @@
                     android:id="@+id/hum_uto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -298,7 +333,8 @@
                     android:id="@+id/hum_sre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -306,7 +342,8 @@
                     android:id="@+id/hum_cet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -314,7 +351,8 @@
                     android:id="@+id/hum_pet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -322,7 +360,8 @@
                     android:id="@+id/hum_sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -330,7 +369,8 @@
                     android:id="@+id/hum_ned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
+                    android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
                     android:text="TextVie" />
 
@@ -363,7 +403,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Min. tempratura"
+                android:text=" Min. tempratura"
                 android:textSize="17dp"
                 />
 
@@ -397,7 +437,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Max temperatura"
+                android:text=" Max temperatura"
                 android:textSize="17dp"/>
 
             <TextView
@@ -424,7 +464,7 @@
             android:layout_weight="2">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/slika1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -434,7 +474,7 @@
                 />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/slika2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -30,7 +30,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     double celzijus,farenhajt;
     TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar;
     LinearLayout layout2,layout3,layout4;
-    Button temp,sunce,vetar_button;
+    Button temp,sunce,vetar_button,statistika;
     String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1;
     ImageView slika;
     private Http http;
@@ -55,7 +55,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
         Calendar c = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
-        String formattedDate = df.format(c.getTime());
+        final String formattedDate = df.format(c.getTime());
         http = new Http();
 
         pritisak=(TextView) findViewById(R.id.textView8);
@@ -63,6 +63,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         izlazak_zalazak=(TextView) findViewById(R.id.textView6);
         vetar=(TextView) findViewById(R.id.textView10);
         slika=(ImageView) findViewById(R.id.slika);
+
 
         new Thread(new Runnable() {
             @SuppressLint("SetTextI18n")
@@ -119,8 +120,10 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                         JSONObject sys = (JSONObject) jsonObject.get("sys");
                         sunrise = sys.getString("sunrise");
                         sunset = sys.getString("sunset");
-                        pritisak.setText("Pritisak: " + String.valueOf(pressure) + "mb");
-                        vlaznost.setText("Vlažnost: " + String.valueOf(humidity) + "%");
+                        pritisak.setText(" Pritisak: " + String.valueOf(pressure) + "mb");
+                        vlaznost.setText(" Vlažnost: " + String.valueOf(humidity) + "%");
+
+
                         JSONArray weather = (JSONArray) jsonObject.get("weather");
                         JSONObject object = weather.getJSONObject(0);
                         weather1 = object.getString("main");
@@ -215,6 +218,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         vetar=(TextView) findViewById(R.id.textView10);
         final TextView temperatura = (TextView) findViewById(R.id.textView7);
 
+
         dan.setText(formattedDate.toUpperCase()+" "+filename);
         String[] items = new String[]{"°C","°F"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -226,11 +230,11 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                switch (string){
                    case "°F":
                        NumberFormat form = new DecimalFormat("#0.0");
-                       temperatura.setText("Temp:" + form.format(farenhajt) + " °F");
+                       temperatura.setText(" Temp:" + form.format(farenhajt) + " °F");
                        break;
                    case "°C":
                        NumberFormat form1 = new DecimalFormat("#0.0");
-                       temperatura.setText("Temp:" + form1.format(celzijus) + " °C");
+                       temperatura.setText(" Temp:" + form1.format(celzijus) + " °C");
                        break;
                        default:
                            break;
@@ -244,6 +248,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         temp =(Button) findViewById(R.id.temperatura);
         sunce=(Button) findViewById(R.id.sunce);
         vetar_button =(Button) findViewById(R.id.vetar);
+        statistika = (Button) findViewById(R.id.statistika);
 
         layout2 =(LinearLayout) findViewById(R.id.Layout2);
         layout3 =(LinearLayout) findViewById(R.id.Layout3);
@@ -252,6 +257,20 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         layout2.setVisibility(View.GONE);
         layout3.setVisibility(View.GONE);
         layout4.setVisibility(View.GONE);
+        statistika.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),StatisticsActivity.class);
+                intent.putExtra("temp",celzijus);
+                intent.putExtra("grad",grad);
+                intent.putExtra("dan",formattedDate);
+                intent.putExtra("pressure",pressure);
+                intent.putExtra("humidity",humidity);
+
+                startActivity(intent);
+            }
+        });
 
         temp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +314,9 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void onClick(View view) {}
+    public void onClick(View view) {
+
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}

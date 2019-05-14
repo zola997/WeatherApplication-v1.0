@@ -20,6 +20,10 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="pnrs.vezbe.projekat_1.StatisticsActivity"
+            android:label="StatisticsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="pnrs.vezbe.projekat_1.DetailsActivity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" />
