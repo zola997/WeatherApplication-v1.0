@@ -17,10 +17,6 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
     public static final String CITY_NAME = "cityname";
     public static final String PRESSURE = "pressure";
     public static final String HUMIDITY = "humidity";
-    public static final String SUNRISE = "sunrise";
-    public static final String SUNSET = "sunset";
-    public static final String WIND_SPEED = "windspeed";
-    public static final String WIND_DIR = "winddir";
     public static final String TEMP = "temperature";
 
     public StatisticsDbHelper(@Nullable Context context) {
@@ -64,9 +60,17 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
         return forecast;
 
     }
-    public Forecast[] readForecasts() {
+    public Forecast findForecast(String grad,String temp){
+        SQLiteDatabase database=getReadableDatabase();
+        Cursor cursor = database.query(TABLE_NAME,null,CITY_NAME+"=? AND "+TEMP+"=?",new String[]{grad,temp},null,null,null);
+        cursor.moveToFirst();
+        Forecast forecast = createForecast(cursor);
+        close();
+        return forecast;
+    }
+    public Forecast[] readForecasts(String grad) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, CITY_NAME+"=?", new String[] {grad}, null, null, null, null);
 
         if(cursor.getCount() <= 0){
             return null;

@@ -12,17 +12,29 @@ public class Forecast {
     }
      public String getTemp() {
         return mTemp;
-     }
-     public String getPressure() {
+    }
+    public String getPressure() {
         return mPressure;
-     }
-     public String getHumidity() {
+    }
+    public String getHumidity() {
         return mHumidity;
-     }
-     public String getDan() {
-        return mDan;
-     }
-     public String getGrad() {
-        return mGrad;
-     }
+    }
+    public String getDan() { return mDan;
+    }
+    public String getGrad() { return mGrad;
+    }
+
+    public void setTemp(String temp) {
+        mTemp=temp;
+    }
+    public void setPressure(String pressure) {
+         mPressure=pressure;
+    }
+    public void setHumidity(String humidity){ mHumidity=humidity;
+    }
+    public void setDan(String dan) { mDan=dan;
+    }
+    public void setGrad(String grad) {  mGrad=grad;
+    }
+
 }

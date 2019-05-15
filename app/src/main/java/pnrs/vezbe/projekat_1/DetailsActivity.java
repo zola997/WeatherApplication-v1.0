@@ -33,10 +33,11 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     LinearLayout layout2,layout3,layout4;
     Button temp,sunce,vetar_button,statistika;
     String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1;
-    ImageView slika;
+    ImageView slika,refresh;
     private Http http;
     private static String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     private static String API_KEY = "&APPID=6db369e4771614a635375634c3e40b8d";
+    private volatile boolean pressed=false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -44,6 +45,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         final String grad;
+        refresh=findViewById(R.id.refresh);
 
         if (getIntent().hasExtra("grad")) {
             grad = getIntent().getStringExtra("grad");
@@ -65,154 +67,148 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         izlazak_zalazak=(TextView) findViewById(R.id.textView6);
         vetar=(TextView) findViewById(R.id.textView10);
         slika=(ImageView) findViewById(R.id.slika);
-        ImageView refresh = (ImageView) findViewById(R.id.refresh);
 
-       // refresh.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-      //     public void onClick(View view) {
+               new Thread(new Runnable() {
+                   @SuppressLint("SetTextI18n")
+                   @Override
+                   public void run() {
+                       try {
+                           pressed=false;
 
-            new Thread(new Runnable() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void run() {
-                    try {
+                           final String URL = API_URL + grad + API_KEY;
+                           pritisak = (TextView) findViewById(R.id.textView8);
+                           vlaznost = (TextView) findViewById(R.id.textView9);
+                           izlazak_zalazak = (TextView) findViewById(R.id.textView6);
+                           vetar = (TextView) findViewById(R.id.textView10);
 
-                        final String URL = API_URL + grad + API_KEY;
-                        pritisak = (TextView) findViewById(R.id.textView8);
-                        vlaznost = (TextView) findViewById(R.id.textView9);
-                        izlazak_zalazak = (TextView) findViewById(R.id.textView6);
-                        vetar = (TextView) findViewById(R.id.textView10);
+                           JSONObject jsonObject = http.getJSONObjectFromURL(URL);
+                           if (jsonObject == null) {
+                               Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                               intent.putExtra("error", "Unable to connect.");
+                               getApplicationContext().startActivity(intent);
 
-                        JSONObject jsonObject = http.getJSONObjectFromURL(URL);
-                        if (jsonObject == null) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("error", "Unable to connect.");
-                            getApplicationContext().startActivity(intent);
+                           } else {
 
+                               JSONObject wind = (JSONObject) jsonObject.get("wind");
+                               JSONObject main = (JSONObject) jsonObject.get("main");
 
-                        } else {
+                               temp_kelvin = main.getString("temp");
+                               celzijus = Double.parseDouble(temp_kelvin) - 273.15;
+                               farenhajt = celzijus * 9 / 5 + 32;
+                               try {
+                                   pressure = main.getString("pressure");
+                               } catch (JSONException e) {
+                                   pritisak.setText("Pressure data not available");
+                               }
+                               try {
+                                   humidity = main.getString("humidity");
+                               } catch (JSONException e) {
+                                   vlaznost.setText("Humidity data not available");
+                                   e.printStackTrace();
+                               }
+                               try {
 
-                            JSONObject wind = (JSONObject) jsonObject.get("wind");
-                            JSONObject main = (JSONObject) jsonObject.get("main");
+                                   wind_dir = wind.getString("deg");
+                               } catch (JSONException e) {
+                                   vetar.setText("Wind direction not available.");
+                                   e.printStackTrace();
+                               }
+                               try {
+                                   wind_speed = wind.getString("speed");
+                               } catch (JSONException e) {
+                                   vetar.setText("Wind speed not available.");
+                                   e.printStackTrace();
+                               }
 
-                            temp_kelvin = main.getString("temp");
-                            celzijus = Double.parseDouble(temp_kelvin) - 273.15;
-                            farenhajt = celzijus * 9 / 5 + 32;
-                            try {
-                                pressure = main.getString("pressure");
-                            } catch (JSONException e) {
-                                pritisak.setText("Pressure data not available");
-                            }
-                            try {
-                                humidity = main.getString("humidity");
-                            } catch (JSONException e) {
-                                vlaznost.setText("Humidity data not available");
-                                e.printStackTrace();
-                            }
-                            try {
-
-                                wind_dir = wind.getString("deg");
-                            } catch (JSONException e) {
-                                vetar.setText("Wind direction not available.");
-                                e.printStackTrace();
-                            }
-                            try {
-                                wind_speed = wind.getString("speed");
-                            } catch (JSONException e) {
-                                vetar.setText("Wind speed not available.");
-                                e.printStackTrace();
-                            }
-
-                            JSONObject sys = (JSONObject) jsonObject.get("sys");
-                            sunrise = sys.getString("sunrise");
-                            sunset = sys.getString("sunset");
-                            pritisak.setText(" Pritisak: " + String.valueOf(pressure) + "mb");
-                            vlaznost.setText(" Vlažnost: " + String.valueOf(humidity) + "%");
+                               JSONObject sys = (JSONObject) jsonObject.get("sys");
+                               sunrise = sys.getString("sunrise");
+                               sunset = sys.getString("sunset");
+                               pritisak.setText(" Pritisak: " + String.valueOf(pressure) + "mb");
+                               vlaznost.setText(" Vlažnost: " + String.valueOf(humidity) + "%");
 
 
-                            JSONArray weather = (JSONArray) jsonObject.get("weather");
-                            JSONObject object = weather.getJSONObject(0);
-                            weather1 = object.getString("main");
-                            slika = (ImageView) findViewById(R.id.slika);
+                               JSONArray weather = (JSONArray) jsonObject.get("weather");
+                               JSONObject object = weather.getJSONObject(0);
+                               weather1 = object.getString("main");
+                               slika = (ImageView) findViewById(R.id.slika);
 
-                            switch (weather1) {
-                                case "Rain":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.rain_icon));
-                                    break;
-                                case "Clouds":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.clouds));
-                                    break;
-                                case "Clear":
-                                    slika.setImageDrawable(getResources().getDrawable(drawable.sun_icon));
-                                    break;
-                                default:
-                                    break;
-                            }
+                               switch (weather1) {
+                                   case "Rain":
+                                       slika.setImageDrawable(getResources().getDrawable(drawable.rain_icon));
+                                       break;
+                                   case "Clouds":
+                                       slika.setImageDrawable(getResources().getDrawable(drawable.clouds));
+                                       break;
+                                   case "Clear":
+                                       slika.setImageDrawable(getResources().getDrawable(drawable.sun_icon));
+                                       break;
+                                   default:
+                                       break;
+                               }
 
-                            Date date = new java.util.Date(Integer.parseInt(sunrise) * 1000L);
+                               Date date = new java.util.Date(Integer.parseInt(sunrise) * 1000L);
 
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
-                            sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
-                            String formattedDate = sdf.format(date);
+                               @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+                               sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+                               String formattedDate = sdf.format(date);
 
-                            Date date1 = new java.util.Date(Integer.parseInt(sunset) * 1000L);
+                               Date date1 = new java.util.Date(Integer.parseInt(sunset) * 1000L);
 
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf1 = new java.text.SimpleDateFormat("HH:mm:ss");
-                            sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
-                            String formattedDate1 = sdf1.format(date1);
+                               @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf1 = new java.text.SimpleDateFormat("HH:mm:ss");
+                               sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+                               String formattedDate1 = sdf1.format(date1);
 
-                            izlazak_zalazak.setText("Izlazak sunca: " + formattedDate + "\n" + "Zalazak sunca: " + formattedDate1);
-                            if (wind_dir != null && wind_speed != null) {
-                                Double pravac = Double.parseDouble(wind_dir);
-                                if (pravac >= 337 || pravac < 23) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: N");
-                                } else if (pravac >= 23 && pravac < 68) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: NE");
-                                } else if (pravac >= 68 && pravac < 113) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: E");
-                                } else if (pravac >= 113 && pravac < 158) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: SE");
-                                } else if (pravac >= 158 && pravac < 203) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: S");
-                                } else if (pravac >= 203 && pravac < 248) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: SW");
-                                } else if (pravac >= 248 && pravac < 293) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: W");
-                                } else if (pravac >= 293 && pravac < 337) {
-                                    vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: NW");
-                                }
-                            } else if (wind_speed != null && wind_dir == null) {
-                                vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Wind direction not available.");
-                            } else if (wind_speed == null && wind_dir != null) {
-                                Double pravac = Double.parseDouble(wind_dir);
-                                if (pravac >= 337 || pravac < 23) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: N");
-                                } else if (pravac >= 23 && pravac < 68) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: NE");
-                                } else if (pravac >= 68 && pravac < 113) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: E");
-                                } else if (pravac >= 113 && pravac < 158) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: SE");
-                                } else if (pravac >= 158 && pravac < 203) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: S");
-                                } else if (pravac >= 203 && pravac < 248) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: SW");
-                                } else if (pravac >= 248 && pravac < 293) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: W");
-                                } else if (pravac >= 293 && pravac < 337) {
-                                    vetar.setText("Wind speed not available.\n" + "Pravac: NW");
-                                }
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-          //  }
-      //  });
+                               izlazak_zalazak.setText("Izlazak sunca: " + formattedDate + "\n" + "Zalazak sunca: " + formattedDate1);
+                               if (wind_dir != null && wind_speed != null) {
+                                   Double pravac = Double.parseDouble(wind_dir);
+                                   if (pravac >= 337 || pravac < 23) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: N");
+                                   } else if (pravac >= 23 && pravac < 68) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: NE");
+                                   } else if (pravac >= 68 && pravac < 113) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: E");
+                                   } else if (pravac >= 113 && pravac < 158) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: SE");
+                                   } else if (pravac >= 158 && pravac < 203) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: S");
+                                   } else if (pravac >= 203 && pravac < 248) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: SW");
+                                   } else if (pravac >= 248 && pravac < 293) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: W");
+                                   } else if (pravac >= 293 && pravac < 337) {
+                                       vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Pravac: NW");
+                                   }
+                               } else if (wind_speed != null && wind_dir == null) {
+                                   vetar.setText("Brzina vetra: " + wind_speed + "m/s\n" + "Wind direction not available.");
+                               } else if (wind_speed == null && wind_dir != null) {
+                                   Double pravac = Double.parseDouble(wind_dir);
+                                   if (pravac >= 337 || pravac < 23) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: N");
+                                   } else if (pravac >= 23 && pravac < 68) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: NE");
+                                   } else if (pravac >= 68 && pravac < 113) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: E");
+                                   } else if (pravac >= 113 && pravac < 158) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: SE");
+                                   } else if (pravac >= 158 && pravac < 203) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: S");
+                                   } else if (pravac >= 203 && pravac < 248) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: SW");
+                                   } else if (pravac >= 248 && pravac < 293) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: W");
+                                   } else if (pravac >= 293 && pravac < 337) {
+                                       vetar.setText("Wind speed not available.\n" + "Pravac: NW");
+                                   }
+                               }
+                           }
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
+                   }
+               }).start();
+
 
         setContentView(R.layout.activity_details);
         Spinner dropdown = (Spinner)findViewById(R.id.spinner);
