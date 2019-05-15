@@ -89,4 +89,15 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
         String grad = cursor.getString(cursor.getColumnIndex(CITY_NAME));
         return new Forecast(dan,grad,temp,pressure,humidity);
     }
+    public void deleteForecast(String grad,String dan) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, CITY_NAME+"=? AND " +DATE+"=?", new String[] {grad,dan});
+        close();
+    }
+    public void deleteCity(String grad){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, CITY_NAME+"=?", new String[] {grad});
+        close();
+
+    }
 }

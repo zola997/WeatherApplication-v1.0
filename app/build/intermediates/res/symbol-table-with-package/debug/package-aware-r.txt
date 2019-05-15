@@ -794,6 +794,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable clouds
 drawable clouds_icon
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
@@ -822,6 +823,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rain_icon
+drawable refresh
 drawable rounded_corner
 drawable rounded_corner1
 drawable rounded_corner2
@@ -983,6 +985,7 @@ id progress_circular
 id progress_horizontal
 id radio
 id radioButton
+id refresh
 id right
 id right_icon
 id right_side

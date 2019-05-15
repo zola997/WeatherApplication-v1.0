@@ -648,6 +648,10 @@
         "source": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\src\\main\\res\\drawable\\rain_icon.png"
     },
     {
+        "merged": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_refresh.png.flat",
+        "source": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\src\\main\\res\\drawable-v24\\refresh.png"
+    },
+    {
         "merged": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png"
     },
@@ -986,6 +990,10 @@
     {
         "merged": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
         "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_clouds.png.flat",
+        "source": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\src\\main\\res\\drawable-v24\\clouds.png"
     },
     {
         "merged": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.3\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",

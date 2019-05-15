@@ -226,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
-                    android:text="Pressure"
+                    android:text="Press."
                     android:textAlignment="center"
                     android:padding="5dp"/>
 
