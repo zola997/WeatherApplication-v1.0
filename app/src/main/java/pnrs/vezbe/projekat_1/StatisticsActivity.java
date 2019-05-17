@@ -2,10 +2,12 @@ package pnrs.vezbe.projekat_1;
 
 
 import android.annotation.SuppressLint;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     TextView[] hums = {hum_pon,hum_uto,hum_sre,hum_cet,hum_pet,hum_sub,hum_ned};
     TextView[] dani = {pon,uto,sre,cet,pet,sub,ned};
     TextView temp_max,temp_min,dan_max,dan_min;
+    Button brisi_sredu;
     ImageView sunce,pahulja;
     String grad,danas;
 
@@ -106,6 +109,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         hums[4]=findViewById(R.id.hum_pet);
         hums[5]=findViewById(R.id.hum_sub);
         hums[6]=findViewById(R.id.hum_ned);
+        brisi_sredu=findViewById(R.id.brisi_sredu);
 
 
         grad=getIntent().getStringExtra("grad");
@@ -239,25 +243,29 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
-                dbHelper.deleteForecast(grad,danas);
-                dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
+                dbHelper.deleteForecast(grad, danas);
+                dbHelper.insert(new Forecast(danas, grad, String.valueOf(Double.valueOf(temp).intValue()), pressure + "mb", humidity + "%"));
 
-                for(int i=0;i<lista_dana.length;i++){
-                    if(Integer.valueOf(dbHelper.readForecast(grad,lista_dana[i]).getTemp())>10){
-                         temps[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getTemp()+ "°C");
-                         hums[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getHumidity());
-                         presss[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getPressure());
-                         dani[i].setTypeface(null,Typeface.BOLD);
+                    for (int i = 0; i < lista_dana.length; i++) {
+                        try {
+                            if (Integer.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) > 10) {
+                                temps[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getTemp() + "°C");
+                                hums[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getHumidity());
+                                presss[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getPressure());
+                                dani[i].setTypeface(null, Typeface.BOLD);
 
-                        }
-                        else{
-                            temps[i].setText("");
-                            hums[i].setText("");
-                            presss[i].setText("");
-                            dani[i].setTypeface(null,Typeface.NORMAL);
-                        }
+                            } else {
+                                temps[i].setText("");
+                                hums[i].setText("");
+                                presss[i].setText("");
+                                dani[i].setTypeface(null, Typeface.NORMAL);
+                            }
+                        }catch (CursorIndexOutOfBoundsException e){
+                            e.printStackTrace();
                     }
+
                 }
+            }
 
 
         });
@@ -266,31 +274,49 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
-                 Forecast[] forecasts= dbHelper.readForecasts(grad);
-                dbHelper.deleteForecast(grad,danas);
-                dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
+                Forecast[] forecasts = dbHelper.readForecasts(grad);
+                dbHelper.deleteForecast(grad, danas);
+                dbHelper.insert(new Forecast(danas, grad, String.valueOf(Double.valueOf(temp).intValue()), pressure + "mb", humidity + "%"));
 
 
-                for(int i=0;i<lista_dana.length;i++){
-                    if(Integer.valueOf(dbHelper.readForecast(grad,lista_dana[i]).getTemp())<10){
-                        temps[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getTemp()+ "°C");
-                        hums[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getHumidity());
-                        presss[i].setText(dbHelper.readForecast(grad,lista_dana[i]).getPressure());
-                        dani[i].setTypeface(null,Typeface.BOLD);
+                for (int i = 0; i < lista_dana.length; i++) {
+                    try {
+                        if (Integer.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) < 10) {
+                            temps[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getTemp() + "°C");
+                            hums[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getHumidity());
+                            presss[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getPressure());
+                            dani[i].setTypeface(null, Typeface.BOLD);
 
-                    }
-                    else{
-                        temps[i].setText("");
-                        hums[i].setText("");
-                        presss[i].setText("");
-                        dani[i].setTypeface(null,Typeface.NORMAL);
+                        } else {
+                            temps[i].setText("");
+                            hums[i].setText("");
+                            presss[i].setText("");
+                            dani[i].setTypeface(null, Typeface.NORMAL);
+                        }
+
+                    } catch (CursorIndexOutOfBoundsException e) {
+                        e.printStackTrace();
                     }
                 }
             }
 
 
+
         });
 
+        brisi_sredu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i=0;i<7;i++){
+                    if(lista_dana[i].equals("Sreda")){
+                        temps[i].setText("");
+                        presss[i].setText("");
+                        hums[i].setText("");
+                        dbHelper.deleteForecast(grad,lista_dana[i]);
+                    }
+                }
+            }
+        });
 
     }
 

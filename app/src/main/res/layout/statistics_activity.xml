@@ -125,6 +125,13 @@
                 android:background="@drawable/drawable_rounded_green"
                 android:clickable="true"
                 android:onClick="onClick"/>
+            <Button
+                android:id="@+id/brisi_sredu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_rounded_green"
+                android:text="Brisi sredu"/>
 
         </LinearLayout>
         <LinearLayout

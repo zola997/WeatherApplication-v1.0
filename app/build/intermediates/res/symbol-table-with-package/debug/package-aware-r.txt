@@ -878,6 +878,7 @@ id barrier
 id beginning
 id blocking
 id bottom
+id brisi_sredu
 id buttonAdd
 id buttonPanel
 id cancel_action

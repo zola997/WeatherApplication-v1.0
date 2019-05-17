@@ -51,7 +51,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        String[] lista_dana={"Ponedeljak","Utorak","Sreda","Četvrtak","Petak","Subota","Nedelja"};
+        String[] lista_dana = {"Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"};
 
 
         if (getIntent().hasExtra("grad")) {
@@ -66,7 +66,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
         Calendar c = Calendar.getInstance();
         sdf = new SimpleDateFormat("HH:mm:ss");
-        vreme=sdf.format(c.getTime());
+        vreme = sdf.format(c.getTime());
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
         formattedDate = df.format(c.getTime());
@@ -77,44 +77,44 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             @SuppressLint("SetTextI18n")
             @Override
             public void run() {
-        final String URL = API_URL + grad + API_KEY;
+                final String URL = API_URL + grad + API_KEY;
 
-        try {
-            jsonObject = http.getJSONObjectFromURL(URL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                try {
+                    jsonObject = http.getJSONObjectFromURL(URL);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 
-        pritisak=(TextView) findViewById(R.id.textView8);
-        vlaznost=(TextView) findViewById(R.id.textView9);
-        izlazak_zalazak=(TextView) findViewById(R.id.textView6);
-        vetar=(TextView) findViewById(R.id.textView10);
-        slika=(ImageView) findViewById(R.id.slika);
-        last_update=(TextView)findViewById(R.id.last_update);
-        refresh=findViewById(R.id.refresh);
+        pritisak = (TextView) findViewById(R.id.textView8);
+        vlaznost = (TextView) findViewById(R.id.textView9);
+        izlazak_zalazak = (TextView) findViewById(R.id.textView6);
+        vetar = (TextView) findViewById(R.id.textView10);
+        slika = (ImageView) findViewById(R.id.slika);
+        last_update = (TextView) findViewById(R.id.last_update);
+        refresh = findViewById(R.id.refresh);
 
-        dropdown = (Spinner)findViewById(R.id.spinner);
-        ime_grada=(TextView) findViewById(R.id.TextView1);
-        dan=(TextView) findViewById(R.id.textView4);
+        dropdown = (Spinner) findViewById(R.id.spinner);
+        ime_grada = (TextView) findViewById(R.id.TextView1);
+        dan = (TextView) findViewById(R.id.textView4);
         ime_grada.setText(grad);
-        pritisak=(TextView) findViewById(R.id.textView8);
-        vlaznost=(TextView) findViewById(R.id.textView9);
-        izlazak_zalazak=findViewById(R.id.textView6);
-        vetar=(TextView) findViewById(R.id.textView10);
+        pritisak = (TextView) findViewById(R.id.textView8);
+        vlaznost = (TextView) findViewById(R.id.textView9);
+        izlazak_zalazak = findViewById(R.id.textView6);
+        vetar = (TextView) findViewById(R.id.textView10);
         temperatura = (TextView) findViewById(R.id.textView7);
 
-        temp =(Button) findViewById(R.id.temperatura);
-        sunce=(Button) findViewById(R.id.sunce);
-        vetar_button =(Button) findViewById(R.id.vetar);
+        temp = (Button) findViewById(R.id.temperatura);
+        sunce = (Button) findViewById(R.id.sunce);
+        vetar_button = (Button) findViewById(R.id.vetar);
         statistika = (Button) findViewById(R.id.statistika);
 
-        layout2 =(LinearLayout) findViewById(R.id.Layout2);
-        layout3 =(LinearLayout) findViewById(R.id.Layout3);
-        layout4 =(LinearLayout) findViewById(R.id.Layout4);
+        layout2 = (LinearLayout) findViewById(R.id.Layout2);
+        layout3 = (LinearLayout) findViewById(R.id.Layout3);
+        layout4 = (LinearLayout) findViewById(R.id.Layout4);
 
         layout2.setVisibility(View.GONE);
         layout3.setVisibility(View.GONE);
@@ -123,19 +123,25 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         temperatura.setText("No data");
 
         dbHelper = new DateDb1(this);
-        dbHelper.insertDate("no data",grad);
-        for(int i=0;i<7;i++) {
-            if(getToday()==lista_dana[i]) {
-                try {
-                    forecasts = dbHelper1.readForecasts(grad);
-                    temperatura.setText(" Temp: " + forecasts[i].getTemp() + "°C");
-                    pritisak.setText(" Pritisak: " + forecasts[i].getPressure());
-                    vlaznost.setText(" Vlažnost: " + forecasts[i].getHumidity());
-                } catch (NullPointerException e) {
-                    temperatura.setText("Grad prvi put u bazi podataka.");
-
+        dbHelper.insertDate("First time loaded.", grad);
+        forecasts = dbHelper1.readForecasts(grad);
+        try {
+            for (int i = 0; i < 7; i++) {
+                if (getToday().equals(lista_dana[i])) {
+                    try {
+                        forecasts = dbHelper1.readForecasts(grad);
+                        temperatura.setText(" Temp: " + forecasts[i].getTemp() + "°C");
+                        pritisak.setText(" Pritisak: " + forecasts[i].getPressure());
+                        vlaznost.setText(" Vlažnost: " + forecasts[i].getHumidity());
+                    } catch (NullPointerException e) {
+                        temperatura.setText("Grad prvi put u bazi podataka.");
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        e.printStackTrace();
+                    }
                 }
             }
+        }catch (NullPointerException e){
+            temperatura.setText("Grad prvi put u bazi podataka.");
         }
 
 
@@ -235,7 +241,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                 last_update.setVisibility(view.INVISIBLE);
                 last_updated=filename;
                 dbHelper.deleteOldDate(grad);
-                //dbHelper1.deleteCity(grad);
                 dbHelper.insertDate(last_updated+"\n"+vreme,grad);
                 dbHelper1.insert(new Forecast(getToday(),grad,String.valueOf(celzijus),pressure,humidity));
                 dan.setText(last_updated+"\n"+vreme);

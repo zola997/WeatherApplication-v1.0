@@ -13,7 +13,6 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "weather.db";
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_NAME = "WeatherForecast";
-    public static final String TABLE_NAME1 = "datum";
     public static final String DATE = "date";
     public static final String CITY_NAME = "cityname";
     public static final String PRESSURE = "pressure";
@@ -53,7 +52,6 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         close();
     }
-
 
     public Forecast readForecast(String grad,String dan){
             SQLiteDatabase database= getReadableDatabase();
