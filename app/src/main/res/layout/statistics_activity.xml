@@ -4,7 +4,7 @@
     android:id="@+id/statistics_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/drawable_green"
+    android:background="@drawable/green_background"
     android:orientation="vertical"
     android:weightSum="9">
 
@@ -157,7 +157,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="19" />
 
                 <TextView
                     android:id="@+id/temp_uto"
@@ -166,7 +166,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="9" />
 
                 <TextView
                     android:id="@+id/temp_sre"
@@ -175,7 +175,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="9" />
 
                 <TextView
                     android:id="@+id/temp_cet"
@@ -184,7 +184,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="12" />
 
                 <TextView
                     android:id="@+id/temp_pet"
@@ -193,7 +193,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="20" />
 
                 <TextView
                     android:id="@+id/temp_sub"
@@ -202,7 +202,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="24" />
 
                 <TextView
                     android:id="@+id/temp_ned"
@@ -211,7 +211,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="TextVie" />
+                    android:text="26" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +237,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1012mb" />
 
                 <TextView
                     android:id="@+id/press_uto"
@@ -246,7 +246,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1017mb" />
 
                 <TextView
                     android:id="@+id/press_sre"
@@ -255,7 +255,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1019mb" />
 
                 <TextView
                     android:id="@+id/press_cet"
@@ -264,7 +264,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1009mb" />
 
                 <TextView
                     android:id="@+id/press_pet"
@@ -273,7 +273,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1011mb" />
 
                 <TextView
                     android:id="@+id/press_sub"
@@ -282,7 +282,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1012mb" />
 
                 <TextView
                     android:id="@+id/press_ned"
@@ -291,7 +291,7 @@
                     android:background="@drawable/drawable_rounded_green"
                     android:textSize="19dp"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text="1015mb" />
 
 
             </LinearLayout>
@@ -318,7 +318,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 82%" />
 
                 <TextView
                     android:id="@+id/hum_uto"
@@ -327,7 +327,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 90%" />
 
                 <TextView
                     android:id="@+id/hum_sre"
@@ -336,7 +336,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 91%" />
 
                 <TextView
                     android:id="@+id/hum_cet"
@@ -345,7 +345,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 77%" />
 
                 <TextView
                     android:id="@+id/hum_pet"
@@ -354,7 +354,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 82%" />
 
                 <TextView
                     android:id="@+id/hum_sub"
@@ -363,7 +363,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 79%" />
 
                 <TextView
                     android:id="@+id/hum_ned"
@@ -372,7 +372,7 @@
                     android:textSize="19dp"
                     android:background="@drawable/drawable_rounded_green"
                     android:textAlignment="center"
-                    android:text="TextVie" />
+                    android:text=" 85%" />
 
             </LinearLayout>
 

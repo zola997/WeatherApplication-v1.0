@@ -805,6 +805,7 @@ drawable design_snackbar_background
 drawable download
 drawable drawable_green
 drawable drawable_rounded_green
+drawable green_background
 drawable green_not_rounded
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -944,6 +945,7 @@ id invisible
 id italic
 id item_touch_helper_previous_elevation
 id largeLabel
+id last_update
 id left
 id line1
 id line3

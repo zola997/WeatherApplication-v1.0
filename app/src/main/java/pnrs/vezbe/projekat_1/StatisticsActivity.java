@@ -27,9 +27,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     TextView[] dani = {pon,uto,sre,cet,pet,sub,ned};
     TextView temp_max,temp_min,dan_max,dan_min;
     ImageView sunce,pahulja;
-
     String grad,danas;
-
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -111,70 +109,21 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
 
 
         grad=getIntent().getStringExtra("grad");
-        dbHelper.deleteCity(grad);
+       // dbHelper.deleteCity(grad);
+        //dbHelper.deleteAll();
         final String dan=getIntent().getStringExtra("dan");
         final String temp =getIntent().getStringExtra("temperatura");
         final String humidity = getIntent().getStringExtra("humidity");
         final String pressure = getIntent().getStringExtra("pressure");
         ime_grada.setText(grad);
 
+        for(int i=0;i<7;i++) {
+            dbHelper.insert(new Forecast(lista_dana[i], grad,temps[i].getText().toString(),presss[i].getText().toString(),hums[i].getText().toString()));
+            temps[i].append("°C");
+        }
 
-
-
-
-        final Forecast forecast_pon = new Forecast("Ponedeljak",grad,"19","1003mb","85%");
-        final Forecast forecast_uto = new Forecast("Utorak",grad,"10","1012mb","90%");
-        final Forecast forecast_sre = new Forecast("Sreda",grad,"11","1015mb","95%");
-        final Forecast forecast_cet = new Forecast("Četvrtak",grad,"17","1009mb","83%");
-        final Forecast forecast_pet = new Forecast("Petak",grad,"26","1012mb","90%");
-        final Forecast forecast_sub = new Forecast("Subota",grad,"26","1023mb","70%");
-        final Forecast forecast_ned = new Forecast("Nedelja",grad,"26","1011mb","81%");
-
-        if(danas!="Ponedeljak")
-        dbHelper.insert(forecast_pon);
-        if(danas!="Utorak")
-        dbHelper.insert(forecast_uto);
-        if(danas!="Sreda")
-        dbHelper.insert(forecast_sre);
-        if(danas!="Četvrtak")
-        dbHelper.insert(forecast_cet);
-        if(danas!="Petak")
-        dbHelper.insert(forecast_pet);
-        if(danas!="Subota")
-        dbHelper.insert(forecast_sub);
-        if(danas!="Nedelja")
-        dbHelper.insert(forecast_ned);
-       // Forecast[] forecasts= dbHelper.readForecasts();
         dbHelper.deleteForecast(grad,danas);
         dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
-
-
-        //Forecast forecast = dbHelper.readForecast("Novi Sad","Subota");
-
-        temp_pon.setText(dbHelper.readForecast(grad,"Ponedeljak").getTemp()+"°C");
-        temp_uto.setText(dbHelper.readForecast(grad,"Utorak").getTemp()+"°C");
-        temp_sre.setText(dbHelper.readForecast(grad,"Sreda").getTemp()+"°C");
-        temp_cet.setText(dbHelper.readForecast(grad,"Četvrtak").getTemp()+"°C");
-        temp_pet.setText(dbHelper.readForecast(grad,"Petak").getTemp()+"°C");
-        temp_sub.setText(dbHelper.readForecast(grad,"Subota").getTemp()+"°C");
-        temp_ned.setText(dbHelper.readForecast(grad,"Nedelja").getTemp()+"°C");
-
-        press_pon.setText(dbHelper.readForecast(grad,"Ponedeljak").getPressure());
-        press_uto.setText(dbHelper.readForecast(grad,"Utorak").getPressure());
-        press_sre.setText(dbHelper.readForecast(grad,"Sreda").getPressure());
-        press_cet.setText(dbHelper.readForecast(grad,"Četvrtak").getPressure());
-        press_pet.setText(dbHelper.readForecast(grad,"Petak").getPressure());
-        press_sub.setText(dbHelper.readForecast(grad,"Subota").getPressure());
-        press_ned.setText(dbHelper.readForecast(grad,"Nedelja").getPressure());
-
-        hum_pon.setText(dbHelper.readForecast(grad,"Ponedeljak").getHumidity());
-        hum_uto.setText(dbHelper.readForecast(grad,"Utorak").getHumidity());
-        hum_sre.setText(dbHelper.readForecast(grad,"Sreda").getHumidity());
-        hum_cet.setText(dbHelper.readForecast(grad,"Četvrtak").getHumidity());
-        hum_pet.setText(dbHelper.readForecast(grad,"Petak").getHumidity());
-        hum_sub.setText(dbHelper.readForecast(grad,"Subota").getHumidity());
-        hum_ned.setText(dbHelper.readForecast(grad,"Nedelja").getHumidity());
-
 
 
         if (danas == "Ponedeljak"){
@@ -182,50 +131,71 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             temp_pon.setTypeface(null, Typeface.BOLD);
             press_pon.setTypeface(null, Typeface.BOLD);
             hum_pon.setTypeface(null,Typeface.BOLD);
+            temp_pon.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_pon.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_pon.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Utorak"){
             uto.setTypeface(null,Typeface.BOLD);
             temp_uto.setTypeface(null, Typeface.BOLD);
             press_uto.setTypeface(null, Typeface.BOLD);
             hum_uto.setTypeface(null,Typeface.BOLD);
+            temp_uto.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_uto.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_uto.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Sreda"){
             sre.setTypeface(null,Typeface.BOLD);
             temp_sre.setTypeface(null, Typeface.BOLD);
             press_sre.setTypeface(null, Typeface.BOLD);
             hum_sre.setTypeface(null,Typeface.BOLD);
+            temp_sre.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_sre.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_sre.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Četvrtak"){
             cet.setTypeface(null,Typeface.BOLD);
             temp_cet.setTypeface(null, Typeface.BOLD);
             press_cet.setTypeface(null, Typeface.BOLD);
             hum_cet.setTypeface(null,Typeface.BOLD);
+            temp_cet.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_cet.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_cet.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Petak") {
             pet.setTypeface(null,Typeface.BOLD);
             temp_pet.setTypeface(null, Typeface.BOLD);
             press_pet.setTypeface(null, Typeface.BOLD);
             hum_pet.setTypeface(null,Typeface.BOLD);
+            temp_pet.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_pet.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_pet.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Subota"){
             sub.setTypeface(null,Typeface.BOLD);
             temp_sub.setTypeface(null, Typeface.BOLD);
             press_sub.setTypeface(null, Typeface.BOLD);
             hum_sub.setTypeface(null,Typeface.BOLD);
+            temp_sub.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_sub.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_sub.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Nedelja"){
             ned.setTypeface(null,Typeface.BOLD);
             temp_ned.setTypeface(null, Typeface.BOLD);
             press_ned.setTypeface(null, Typeface.BOLD);
             hum_ned.setTypeface(null,Typeface.BOLD);
+            temp_ned.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
+            press_ned.setText(dbHelper.readForecast(grad,danas).getPressure());
+            hum_ned.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
+
         Forecast[] forecasts=dbHelper.readForecasts(grad);
         Forecast maxForecast=new Forecast("0","0","0","0","0");
         Forecast minForecast=new Forecast("100","100","100","100","100");
         for(int i=0;i<forecasts.length;i++){
             if (Integer.valueOf(forecasts[i].getTemp())>Integer.valueOf(maxForecast.getTemp())) {
-                 maxForecast=forecasts[i];
-
+                maxForecast=forecasts[i];
                 maxForecast.setDan(forecasts[i].getDan());
                 maxForecast.setGrad(forecasts[i].getGrad());
                 maxForecast.setHumidity(forecasts[i].getHumidity());
@@ -236,12 +206,12 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
 
         temp_max.setText(maxForecast.getTemp()+"°C");
         dan_max.setText(dbHelper.findForecast(grad,maxForecast.getTemp()).getDan());
-        dbHelper.deleteForecast(maxForecast.getGrad(),maxForecast.getDan());
+
 
         for(int i=0;i<forecasts.length;i++){
-            if((Integer.valueOf(maxForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=maxForecast.getDan()){
-                dan_max.append("\n"+dbHelper.findForecast(grad,forecasts[i].getTemp()).getDan());
-                dbHelper.deleteForecast(grad,forecasts[i].getDan());
+            if((Integer.valueOf(maxForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=maxForecast.getDan()&&(!dan_max.getText().toString().contains(forecasts[i].getDan()))){
+                dan_max.append("\n"+forecasts[i].getDan());
+
             }
         }
 
@@ -257,37 +227,20 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         }
         temp_min.setText(minForecast.getTemp()+"°C");
         dan_min.setText(dbHelper.findForecast(grad,minForecast.getTemp()).getDan());
-        dbHelper.deleteForecast(minForecast.getGrad(),minForecast.getDan());
+
 
         for(int i=0;i<forecasts.length;i++){
-            if((Integer.valueOf(minForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=minForecast.getDan()){
-                dan_min.append("\n"+dbHelper.findForecast(grad,forecasts[i].getTemp()).getDan());
-                dbHelper.deleteForecast(grad,forecasts[i].getDan());
+            if((Integer.valueOf(minForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=minForecast.getDan()&&(!dan_min.getText().toString().contains(forecasts[i].getDan()))){
+                dan_min.append("\n"+forecasts[i].getDan());
             }
         }
 
         pahulja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper.deleteCity(grad);
-                if(danas!="Ponedeljak")
-                    dbHelper.insert(forecast_pon);
-                if(danas!="Utorak")
-                    dbHelper.insert(forecast_uto);
-                if(danas!="Sreda")
-                    dbHelper.insert(forecast_sre);
-                if(danas!="Četvrtak")
-                    dbHelper.insert(forecast_cet);
-                if(danas!="Petak")
-                    dbHelper.insert(forecast_pet);
-                if(danas!="Subota")
-                    dbHelper.insert(forecast_sub);
-                if(danas!="Nedelja")
-                    dbHelper.insert(forecast_ned);
-                // Forecast[] forecasts= dbHelper.readForecasts();
+
                 dbHelper.deleteForecast(grad,danas);
                 dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
-
 
                 for(int i=0;i<lista_dana.length;i++){
                     if(Integer.valueOf(dbHelper.readForecast(grad,lista_dana[i]).getTemp())>10){
@@ -312,22 +265,8 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         sunce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper.deleteCity(grad);
-                if(danas!="Ponedeljak")
-                    dbHelper.insert(forecast_pon);
-                if(danas!="Utorak")
-                    dbHelper.insert(forecast_uto);
-                if(danas!="Sreda")
-                    dbHelper.insert(forecast_sre);
-                if(danas!="Četvrtak")
-                    dbHelper.insert(forecast_cet);
-                if(danas!="Petak")
-                    dbHelper.insert(forecast_pet);
-                if(danas!="Subota")
-                    dbHelper.insert(forecast_sub);
-                if(danas!="Nedelja")
-                    dbHelper.insert(forecast_ned);
-                // Forecast[] forecasts= dbHelper.readForecasts();
+
+                 Forecast[] forecasts= dbHelper.readForecasts(grad);
                 dbHelper.deleteForecast(grad,danas);
                 dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
 

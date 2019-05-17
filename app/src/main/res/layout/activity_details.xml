@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DetailsActivity"
     android:orientation="vertical"
-    android:background="@drawable/drawable_green"
+    android:background="@drawable/green_background"
     android:weightSum="4">
 
 
@@ -43,7 +43,7 @@
             <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:gravity="top"
             android:text="Datum:"
@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.1"
+                android:id="@+id/last_update"
                 android:gravity="top"
                 android:text="Last updated"
                 android:textColor="@android:color/secondary_text_dark_nodisable"
@@ -63,10 +64,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:clickable="true"
                 android:onClick="onClick"
+                android:clickable="true"
                 android:layout_marginRight="100dp"
-                app:srcCompat="@drawable/refresh" />
+                android:src="@drawable/refresh" />
 
         </LinearLayout>
 
@@ -175,7 +176,7 @@
                  android:textStyle="bold"
                  android:gravity="center"
                  android:textColor="@color/black"
-                 android:text="City not found!" />
+                 android:text="City not loaded." />
              <TextView
                  android:id="@+id/textView9"
                  android:layout_width="wrap_content"

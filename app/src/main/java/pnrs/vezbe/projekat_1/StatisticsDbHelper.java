@@ -13,11 +13,13 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "weather.db";
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_NAME = "WeatherForecast";
+    public static final String TABLE_NAME1 = "datum";
     public static final String DATE = "date";
     public static final String CITY_NAME = "cityname";
     public static final String PRESSURE = "pressure";
     public static final String HUMIDITY = "humidity";
     public static final String TEMP = "temperature";
+
 
     public StatisticsDbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,6 +33,7 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
                 TEMP + " TEXT, " +
                 PRESSURE + " TEXT, " +
                 HUMIDITY + " TEXT);");
+
 
     }
 
@@ -50,6 +53,7 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         close();
     }
+
 
     public Forecast readForecast(String grad,String dan){
             SQLiteDatabase database= getReadableDatabase();
@@ -101,6 +105,13 @@ public class StatisticsDbHelper extends SQLiteOpenHelper {
     public void deleteCity(String grad){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_NAME, CITY_NAME+"=?", new String[] {grad});
+        close();
+
+    }
+
+    public void deleteAll(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME,null,null);
         close();
 
     }
