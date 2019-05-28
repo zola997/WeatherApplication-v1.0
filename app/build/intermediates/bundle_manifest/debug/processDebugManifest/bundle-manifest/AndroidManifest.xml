@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <service
+            android:name="pnrs.vezbe.projekat_1.BoundService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
         <activity
             android:name="pnrs.vezbe.projekat_1.StatisticsActivity"
             android:label="StatisticsActivity"

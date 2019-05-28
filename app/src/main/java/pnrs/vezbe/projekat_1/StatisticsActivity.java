@@ -114,7 +114,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
 
         grad=getIntent().getStringExtra("grad");
        // dbHelper.deleteCity(grad);
-        //dbHelper.deleteAll();
+        dbHelper.deleteAll();
         final String dan=getIntent().getStringExtra("dan");
         final String temp =getIntent().getStringExtra("temperatura");
         final String humidity = getIntent().getStringExtra("humidity");
@@ -197,47 +197,63 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         Forecast[] forecasts=dbHelper.readForecasts(grad);
         Forecast maxForecast=new Forecast("0","0","0","0","0");
         Forecast minForecast=new Forecast("100","100","100","100","100");
-        for(int i=0;i<forecasts.length;i++){
-            if (Integer.valueOf(forecasts[i].getTemp())>Integer.valueOf(maxForecast.getTemp())) {
-                maxForecast=forecasts[i];
-                maxForecast.setDan(forecasts[i].getDan());
-                maxForecast.setGrad(forecasts[i].getGrad());
-                maxForecast.setHumidity(forecasts[i].getHumidity());
-                maxForecast.setPressure(forecasts[i].getPressure());
-                maxForecast.setTemp(forecasts[i].getTemp());
+        try {
+            for (int i = 0; i < forecasts.length; i++) {
+
+                if (Integer.valueOf(forecasts[i].getTemp()) > Integer.valueOf(maxForecast.getTemp())) {
+                    maxForecast = forecasts[i];
+                    maxForecast.setDan(forecasts[i].getDan());
+                    maxForecast.setGrad(forecasts[i].getGrad());
+                    maxForecast.setHumidity(forecasts[i].getHumidity());
+                    maxForecast.setPressure(forecasts[i].getPressure());
+                    maxForecast.setTemp(forecasts[i].getTemp());
+                }
             }
-        }
+
 
         temp_max.setText(maxForecast.getTemp()+"°C");
         dan_max.setText(dbHelper.findForecast(grad,maxForecast.getTemp()).getDan());
-
-
-        for(int i=0;i<forecasts.length;i++){
-            if((Integer.valueOf(maxForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=maxForecast.getDan()&&(!dan_max.getText().toString().contains(forecasts[i].getDan()))){
-                dan_max.append("\n"+forecasts[i].getDan());
-
-            }
+        }catch (NumberFormatException n){
+            n.printStackTrace();
         }
 
-        for(int i=0;i<forecasts.length;i++){
-            if (Integer.valueOf(forecasts[i].getTemp())<Integer.valueOf(minForecast.getTemp())) {
-                minForecast=forecasts[i];
-                minForecast.setDan(forecasts[i].getDan());
-                minForecast.setGrad(forecasts[i].getGrad());
-                minForecast.setHumidity(forecasts[i].getHumidity());
-                minForecast.setPressure(forecasts[i].getPressure());
-                minForecast.setTemp(forecasts[i].getTemp());
+        try {
+            for (int i = 0; i < forecasts.length; i++) {
+                if ((Integer.valueOf(maxForecast.getTemp()) == Integer.valueOf(forecasts[i].getTemp())) && forecasts[i].getDan() != maxForecast.getDan() && (!dan_max.getText().toString().contains(forecasts[i].getDan()))) {
+                    dan_max.append("\n" + forecasts[i].getDan());
+
+                }
             }
         }
-        temp_min.setText(minForecast.getTemp()+"°C");
-        dan_min.setText(dbHelper.findForecast(grad,minForecast.getTemp()).getDan());
-
-
-        for(int i=0;i<forecasts.length;i++){
-            if((Integer.valueOf(minForecast.getTemp())==Integer.valueOf(forecasts[i].getTemp()))&&forecasts[i].getDan()!=minForecast.getDan()&&(!dan_min.getText().toString().contains(forecasts[i].getDan()))){
-                dan_min.append("\n"+forecasts[i].getDan());
-            }
+        catch (NumberFormatException n ){
+            n.printStackTrace();
         }
+       try {
+           for (int i = 0; i < forecasts.length; i++) {
+               if (Integer.valueOf(forecasts[i].getTemp()) < Integer.valueOf(minForecast.getTemp())) {
+                   minForecast = forecasts[i];
+                   minForecast.setDan(forecasts[i].getDan());
+                   minForecast.setGrad(forecasts[i].getGrad());
+                   minForecast.setHumidity(forecasts[i].getHumidity());
+                   minForecast.setPressure(forecasts[i].getPressure());
+                   minForecast.setTemp(forecasts[i].getTemp());
+               }
+           }
+           temp_min.setText(minForecast.getTemp() + "°C");
+           dan_min.setText(dbHelper.findForecast(grad, minForecast.getTemp()).getDan());
+       }catch (NumberFormatException n){
+           n.printStackTrace();
+       }
+
+       try {
+           for (int i = 0; i < forecasts.length; i++) {
+               if ((Integer.valueOf(minForecast.getTemp()) == Integer.valueOf(forecasts[i].getTemp())) && forecasts[i].getDan() != minForecast.getDan() && (!dan_min.getText().toString().contains(forecasts[i].getDan()))) {
+                   dan_min.append("\n" + forecasts[i].getDan());
+               }
+           }
+       }catch (NumberFormatException n){
+           n.printStackTrace();
+       }
 
         pahulja.setOnClickListener(new View.OnClickListener() {
             @Override

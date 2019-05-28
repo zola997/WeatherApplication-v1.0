@@ -173,7 +173,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="9" />
+                    android:text="22" />
 
                 <TextView
                     android:id="@+id/temp_sre"
@@ -182,7 +182,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="9" />
+                    android:text="24" />
 
                 <TextView
                     android:id="@+id/temp_cet"
@@ -191,7 +191,7 @@
                     android:textSize="19dp"
                     android:textAlignment="center"
                     android:background="@drawable/drawable_rounded_green"
-                    android:text="12" />
+                    android:text="17" />
 
                 <TextView
                     android:id="@+id/temp_pet"

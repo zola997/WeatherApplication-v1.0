@@ -1034,9 +1034,11 @@ id src_over
 id sre
 id standard
 id start
+id startService
 id statistics_activity
 id statistika
 id status_bar_latest_event_content
+id stopService
 id sub
 id submenuarrow
 id submit_area

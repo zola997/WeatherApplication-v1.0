@@ -1,7 +1,13 @@
 package pnrs.vezbe.projekat_1;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,11 +17,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     Button buttonMainAdd;
     EditText city;
     ListView city_list;
     RowElementAdapter adapter;
+    public static String CHANNEL_ID;
+    private final String TAG = "main";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         super.onCreate(savedInstanceState);
+        try {
+            createNotificationChannel();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_main);
         buttonMainAdd = (Button) findViewById(R.id.buttonAdd);
         city = (EditText) findViewById(R.id.city_name);
@@ -93,6 +106,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
+    }
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //CharSequence name = getString(R.string.channel_name);
+            //String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Weather", importance);
+            channel.setDescription("temperature update");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }
 
 

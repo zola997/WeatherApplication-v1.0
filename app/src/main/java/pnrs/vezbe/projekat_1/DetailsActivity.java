@@ -1,11 +1,16 @@
 package pnrs.vezbe.projekat_1;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,15 +31,15 @@ import java.util.Date;
 
 import static pnrs.vezbe.projekat_1.R.drawable;
 
-public class DetailsActivity<intent> extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class DetailsActivity<intent> extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, ServiceConnection {
 
     public static double celzijus,farenhajt;
     public SimpleDateFormat sdf;
-    public TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar,temperatura,last_update;
+    public static TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar,temperatura,last_update;
     public LinearLayout layout2,layout3,layout4;
     public Button temp,sunce,vetar_button,statistika;
     public String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1,last_updated,vreme;
-    public ImageView slika,refresh;
+    public static ImageView slika,refresh;
     public Spinner dropdown;
     private Http http;
     private static String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -42,8 +47,12 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     private Forecast[] forecasts;
     private DateDb1 dbHelper;
     private StatisticsDbHelper dbHelper1= new StatisticsDbHelper(this);
-    public String filename,grad,formattedDate;
-    public JSONObject jsonObject;
+    public static String filename,grad,formattedDate;
+    public String jsonObject;
+    Intent serviceIntent;
+    private BoundService mService;
+    public static boolean mBound = false;
+    private Button stopService, startService;
 
 
     @SuppressLint("SetTextI18n")
@@ -51,48 +60,8 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        String[] lista_dana = {"Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"};
-
-
-        if (getIntent().hasExtra("grad")) {
-            grad = getIntent().getStringExtra("grad");
-        } else {
-            throw new IllegalArgumentException("Activity cannot find  extras " + "grad");
-        }
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeStampFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date myDate = new Date();
-        filename = timeStampFormat.format(myDate);
-
-        Calendar c = Calendar.getInstance();
-        sdf = new SimpleDateFormat("HH:mm:ss");
-        vreme = sdf.format(c.getTime());
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
-        formattedDate = df.format(c.getTime());
-        http = new Http();
-
-
-        new Thread(new Runnable() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void run() {
-                final String URL = API_URL + grad + API_KEY;
-
-                try {
-                    jsonObject = http.getJSONObjectFromURL(URL);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-        pritisak = (TextView) findViewById(R.id.textView8);
-        vlaznost = (TextView) findViewById(R.id.textView9);
-        izlazak_zalazak = (TextView) findViewById(R.id.textView6);
-        vetar = (TextView) findViewById(R.id.textView10);
+        startService = findViewById(R.id.startService);
+        stopService = findViewById(R.id.stopService);
         slika = (ImageView) findViewById(R.id.slika);
         last_update = (TextView) findViewById(R.id.last_update);
         refresh = findViewById(R.id.refresh);
@@ -121,6 +90,50 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         layout4.setVisibility(View.GONE);
         refresh.setOnClickListener(this);
         temperatura.setText("No data");
+        startService.setOnClickListener(this);
+        stopService.setOnClickListener(this);
+        String[] lista_dana = {"Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"};
+
+
+        if (getIntent().hasExtra("grad")) {
+            grad = getIntent().getStringExtra("grad");
+        } else {
+            throw new IllegalArgumentException("Activity cannot find  extras " + "grad");
+        }
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeStampFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date myDate = new Date();
+        filename = timeStampFormat.format(myDate);
+
+        Calendar c = Calendar.getInstance();
+        sdf = new SimpleDateFormat("HH:mm:ss");
+        vreme = sdf.format(c.getTime());
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
+        formattedDate = df.format(c.getTime());
+        http = new Http();
+
+
+      /*  new Thread(new Runnable() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void run() {
+                final String URL = API_URL + grad + API_KEY;
+
+                try {
+                    jsonObject = http.getJSONObjectFromURL(URL);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        */
+
+
+
+
 
         dbHelper = new DateDb1(this);
         dbHelper.insertDate("First time loaded.", grad);
@@ -235,17 +248,34 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.refresh:
-                refresh.setVisibility(view.INVISIBLE);
-                last_update.setVisibility(view.INVISIBLE);
-                last_updated=filename;
-                dbHelper.deleteOldDate(grad);
-                dbHelper.insertDate(last_updated+"\n"+vreme,grad);
-                dbHelper1.insert(new Forecast(getToday(),grad,String.valueOf(celzijus),pressure,humidity));
-                dan.setText(last_updated+"\n"+vreme);
-                getData(jsonObject);
+        serviceIntent = new Intent(this, BoundService.class);
+        serviceIntent.putExtra("grad",grad);
+        switch(view.getId()) {
+             case R.id.refresh:
+                 Forecast danas = dbHelper1.readForecast(grad,getToday());
+                 NumberFormat form = new DecimalFormat("#0.0");
+                 temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp())) + " °C");
+                 pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
+                 vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
+                 break;
 
+
+            case R.id.startService:
+                startService(serviceIntent);
+                if (!bindService(serviceIntent, this, Context.BIND_AUTO_CREATE)) {
+                    Log.d("Android servis", "Bind Failed!");
+                }
+                break;
+            case R.id.stopService:
+                if (mService != null) {
+                    Log.d("Android servis", "unbindService on button click");
+                    unbindService(this);
+                    mService = null;
+                } else {
+                    Log.d("Android servis", "service is null");
+                }
+                stopService(serviceIntent);
+                break;
 
         }
 
@@ -400,7 +430,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
 
-    public String getToday(){
+    public static String getToday(){
         Calendar c = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
         final String formattedDate = df.format(c.getTime());
@@ -427,6 +457,20 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         }
 
         return "";
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder service) {
+        if(mService == null){
+            BoundService.LocalBinder binder = (BoundService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+        mBound = false;
     }
 }
 
