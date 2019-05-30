@@ -1,17 +1,17 @@
 {
   "buildFiles": [
-    "C:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Android.mk",
-    "C:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Application.mk"
+    "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Android.mk",
+    "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Application.mk"
   ],
   "cleanCommands": [
-    "C:\\Users\\student\\AppData\\Local\\Android\\Sdk\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:/Users/student/Desktop/WeatherApplication-v1.6-master/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\build\\intermediates\\ndkBuild\\debug\\lib clean"
+    "E:\\Android\\Sdk\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:/Users/Laza/Desktop/projekat/WeatherApplication-v1.6/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\build\\intermediates\\ndkBuild\\debug\\lib clean"
   ],
   "libraries": {
     "MyLibrary-debug-x86": {
       "artifactName": "MyLibrary",
-      "buildCommand": "C:\\Users\\student\\AppData\\Local\\Android\\Sdk\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:/Users/student/Desktop/WeatherApplication-v1.6-master/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dC:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\build\\intermediates\\ndkBuild\\debug\\lib C:/Users/student/Desktop/WeatherApplication-v1.6-master/app/build/intermediates/ndkBuild/debug/obj/local/x86/libMyLibrary.so",
+      "buildCommand": "E:\\Android\\Sdk\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:/Users/Laza/Desktop/projekat/WeatherApplication-v1.6/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dC:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\build\\intermediates\\ndkBuild\\debug\\lib C:/Users/Laza/Desktop/projekat/WeatherApplication-v1.6/app/build/intermediates/ndkBuild/debug/obj/local/x86/libMyLibrary.so",
       "abi": "x86",
-      "output": "C:\\Users\\student\\Desktop\\WeatherApplication-v1.6-master\\app\\build\\intermediates\\ndkBuild\\debug\\obj\\local\\x86\\libMyLibrary.so"
+      "output": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.6\\app\\build\\intermediates\\ndkBuild\\debug\\obj\\local\\x86\\libMyLibrary.so"
     }
   }
 }

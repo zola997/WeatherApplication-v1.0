@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -45,6 +47,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         dan_max=findViewById(R.id.dan_max);
         dan_min=findViewById(R.id.dan_min);
         final String[] lista_dana={"Ponedeljak","Utorak","Sreda","Četvrtak","Petak","Subota","Nedelja"};
+        final NumberFormat form = new DecimalFormat("#0.0");
 
         danas = getToday();
         pon=findViewById(R.id.pon);
@@ -114,7 +117,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
 
         grad=getIntent().getStringExtra("grad");
        // dbHelper.deleteCity(grad);
-        dbHelper.deleteAll();
+        //dbHelper.deleteAll();
         final String dan=getIntent().getStringExtra("dan");
         final String temp =getIntent().getStringExtra("temperatura");
         final String humidity = getIntent().getStringExtra("humidity");
@@ -126,8 +129,8 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             temps[i].append("°C");
         }
 
-        dbHelper.deleteForecast(grad,danas);
-        dbHelper.insert(new Forecast(danas,grad,String.valueOf(Double.valueOf(temp).intValue()),pressure+"mb",humidity+"%"));
+        //dbHelper.deleteForecast(grad,danas);
+        dbHelper.insert(new Forecast(danas,grad,String.valueOf(temp),pressure+"mb",humidity+"%"));
 
 
         if (danas == "Ponedeljak"){
@@ -135,17 +138,17 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             temp_pon.setTypeface(null, Typeface.BOLD);
             press_pon.setTypeface(null, Typeface.BOLD);
             hum_pon.setTypeface(null,Typeface.BOLD);
-            temp_pon.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_pon.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_pon.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_pon.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_pon.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_pon.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
         else if(danas == "Utorak"){
             uto.setTypeface(null,Typeface.BOLD);
             temp_uto.setTypeface(null, Typeface.BOLD);
             press_uto.setTypeface(null, Typeface.BOLD);
             hum_uto.setTypeface(null,Typeface.BOLD);
-            temp_uto.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_uto.setText(dbHelper.readForecast(grad,danas).getPressure());
+            temp_uto.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_uto.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
             hum_uto.setText(dbHelper.readForecast(grad,danas).getHumidity());
         }
         else if(danas == "Sreda"){
@@ -153,45 +156,45 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             temp_sre.setTypeface(null, Typeface.BOLD);
             press_sre.setTypeface(null, Typeface.BOLD);
             hum_sre.setTypeface(null,Typeface.BOLD);
-            temp_sre.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_sre.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_sre.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_sre.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_sre.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_sre.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
         else if(danas == "Četvrtak"){
             cet.setTypeface(null,Typeface.BOLD);
             temp_cet.setTypeface(null, Typeface.BOLD);
             press_cet.setTypeface(null, Typeface.BOLD);
             hum_cet.setTypeface(null,Typeface.BOLD);
-            temp_cet.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_cet.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_cet.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_cet.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_cet.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_cet.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
         else if(danas == "Petak") {
             pet.setTypeface(null,Typeface.BOLD);
             temp_pet.setTypeface(null, Typeface.BOLD);
             press_pet.setTypeface(null, Typeface.BOLD);
             hum_pet.setTypeface(null,Typeface.BOLD);
-            temp_pet.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_pet.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_pet.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_pet.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_pet.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_pet.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
         else if(danas == "Subota"){
             sub.setTypeface(null,Typeface.BOLD);
             temp_sub.setTypeface(null, Typeface.BOLD);
             press_sub.setTypeface(null, Typeface.BOLD);
             hum_sub.setTypeface(null,Typeface.BOLD);
-            temp_sub.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_sub.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_sub.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_sub.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_sub.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_sub.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
         else if(danas == "Nedelja"){
             ned.setTypeface(null,Typeface.BOLD);
             temp_ned.setTypeface(null, Typeface.BOLD);
             press_ned.setTypeface(null, Typeface.BOLD);
             hum_ned.setTypeface(null,Typeface.BOLD);
-            temp_ned.setText(dbHelper.readForecast(grad,danas).getTemp()+"°C");
-            press_ned.setText(dbHelper.readForecast(grad,danas).getPressure());
-            hum_ned.setText(dbHelper.readForecast(grad,danas).getHumidity());
+            temp_ned.setText(String.valueOf(form.format(Double.parseDouble(dbHelper.readForecast(grad,danas).getTemp())-273.15)+"°C"));
+            press_ned.setText(dbHelper.readForecast(grad,danas).getPressure()+"mb");
+            hum_ned.setText(dbHelper.readForecast(grad,danas).getHumidity()+"%");
         }
 
         Forecast[] forecasts=dbHelper.readForecasts(grad);
@@ -259,13 +262,17 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
-                dbHelper.deleteForecast(grad, danas);
-                dbHelper.insert(new Forecast(danas, grad, String.valueOf(Double.valueOf(temp).intValue()), pressure + "mb", humidity + "%"));
+                //dbHelper.deleteForecast(grad, danas);
+                dbHelper.insert(new Forecast(danas, grad,temp.trim(), pressure + "mb", humidity + "%"));
 
                     for (int i = 0; i < lista_dana.length; i++) {
                         try {
-                            if (Integer.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) > 10) {
-                                temps[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getTemp() + "°C");
+                            if (Double.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) > 10.00) {
+                                if(Double.parseDouble(dbHelper.readForecast(grad, lista_dana[i]).getTemp())>270)
+                                temps[i].setText(String.valueOf(Double.parseDouble(dbHelper.readForecast(grad, lista_dana[i]).getTemp())-273.15) + "°C");
+                                else
+                                    temps[i].setText((dbHelper.readForecast(grad, lista_dana[i]).getTemp()) + "°C");
+
                                 hums[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getHumidity());
                                 presss[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getPressure());
                                 dani[i].setTypeface(null, Typeface.BOLD);
@@ -291,14 +298,18 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             public void onClick(View view) {
 
                 Forecast[] forecasts = dbHelper.readForecasts(grad);
-                dbHelper.deleteForecast(grad, danas);
-                dbHelper.insert(new Forecast(danas, grad, String.valueOf(Double.valueOf(temp).intValue()), pressure + "mb", humidity + "%"));
+               // dbHelper.deleteForecast(grad, danas);
+                dbHelper.insert(new Forecast(danas, grad, temp.trim(), pressure + "mb", humidity + "%"));
 
 
                 for (int i = 0; i < lista_dana.length; i++) {
                     try {
-                        if (Integer.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) < 10) {
-                            temps[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getTemp() + "°C");
+                        if (Double.valueOf(dbHelper.readForecast(grad, lista_dana[i]).getTemp()) < 10.00) {
+                            if(Double.parseDouble(dbHelper.readForecast(grad, lista_dana[i]).getTemp())>270)
+                                temps[i].setText(String.valueOf(Double.parseDouble(dbHelper.readForecast(grad, lista_dana[i]).getTemp())-273.15) + "°C");
+                            else
+                                temps[i].setText((dbHelper.readForecast(grad, lista_dana[i]).getTemp()) + "°C");
+
                             hums[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getHumidity());
                             presss[i].setText(dbHelper.readForecast(grad, lista_dana[i]).getPressure());
                             dani[i].setTypeface(null, Typeface.BOLD);

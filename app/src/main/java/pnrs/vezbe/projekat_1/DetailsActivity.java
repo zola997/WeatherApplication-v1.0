@@ -108,9 +108,10 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         Date myDate = new Date();
         filename = timeStampFormat.format(myDate);
 
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         sdf = new SimpleDateFormat("HH:mm:ss");
         vreme = sdf.format(c.getTime());
+        final NumberFormat form = new DecimalFormat("#0.0");
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
         formattedDate = df.format(c.getTime());
@@ -131,10 +132,13 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             for (int i = 0; i < 7; i++) {
                 if (getToday().equals(lista_dana[i])) {
                     try {
-                        forecasts = dbHelper1.readForecasts(grad);
-                        temperatura.setText(" Temp: " + forecasts[i].getTemp() + "°C");
-                        pritisak.setText(" Pritisak: " + forecasts[i].getPressure());
-                        vlaznost.setText(" Vlažnost: " + forecasts[i].getHumidity());
+                        //forecasts = dbHelper1.readForecasts(grad);
+                       // temperatura.setText(" Temp: " + forecasts[i].getTemp() + "°C");
+                        temperatura.setText("Temp: " + danas.getTemp() + "°K");
+                      //  pritisak.setText(" Pritisak: " + forecasts[i].getPressure());
+                        pritisak.setText("Pritisak: " + danas.getPressure()+ "mb");
+                       // vlaznost.setText(" Vlažnost: " + forecasts[i].getHumidity());
+                        vlaznost.setText("Vlažnost: " + danas.getHumidity() + "%");
                     } catch (NullPointerException e) {
                         temperatura.setText("Grad prvi put u bazi podataka.");
                     }catch (ArrayIndexOutOfBoundsException e){
@@ -191,11 +195,11 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),StatisticsActivity.class);
-                intent.putExtra("temperatura",String.valueOf(celzijus));
+                intent.putExtra("temperatura",form.format(Double.parseDouble(danas.getTemp())-273.15));
                 intent.putExtra("grad",grad);
-                intent.putExtra("dan",formattedDate);
-                intent.putExtra("pressure",pressure);
-                intent.putExtra("humidity",humidity);
+                intent.putExtra("dan", getToday());
+                intent.putExtra("pressure",danas.getPressure());
+                intent.putExtra("humidity",danas.getHumidity());
 
                 startActivity(intent);
             }
@@ -252,9 +256,12 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                  try {
                      NumberFormat form = new DecimalFormat("#0.0");
                      dan.setText(dbHelper.readLastDate(grad));
-                     temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp())) + " K");
-                     pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
-                     vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
+                     danas = dbHelper1.readForecast(grad, getToday());
+                     if(!danas.getTemp().equals("0.00")) {
+                         temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp()) - 273.15) + "°C");
+                         pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
+                         vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
+                     }
                  }catch (NullPointerException e){
                      temperatura.setText("Please acquire weather data.");
                  }

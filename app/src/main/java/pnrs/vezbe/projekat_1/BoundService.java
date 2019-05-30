@@ -74,7 +74,6 @@ public class BoundService extends Service {
         httpHelper=new Http();
         dbHelper=new StatisticsDbHelper(this);
 
-
     }
 
     @Override
