@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\ra205-2016\\Projekat\\WeatherApplication-v1.1\\WeatherApplication-v1.4\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "C:\\Users\\Laza\\Desktop\\projekat\\WeatherApplication-v1.4\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\student\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\217edcc4f5d6c024fcd649bf20ca6bdb\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\a345d105a542ff12bd4b1acdedab8261\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\student\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\5816d6c2de5c991ce0b34ffe42d61606\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Laza\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\52627c842d300046a473cfd130eddf89\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

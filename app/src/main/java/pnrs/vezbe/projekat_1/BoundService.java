@@ -139,16 +139,13 @@ public class BoundService extends Service {
                                 JSONObject main = (JSONObject) jsonObject.get("main");
                                 NumberFormat form = new DecimalFormat("#0.0");
                                 temp_kelvin = main.getString("temp");
-                                celzijus = Double.parseDouble(temp_kelvin) - 273.15;
+                               // celzijus = Double.parseDouble(temp_kelvin) - 273.15;
                                 farenhajt = celzijus * 9 / 5 + 32;
                                 pressure = main.getString("pressure");
                                 humidity = main.getString("humidity");
 
                                 dbHelper.deleteForecast(DetailsActivity.grad,DetailsActivity.getToday());
-                                dbHelper.insert(new Forecast(DetailsActivity.getToday(),DetailsActivity.grad,String.valueOf(celzijus),pressure,humidity));
-
-
-
+                                dbHelper.insert(new Forecast(DetailsActivity.getToday(),DetailsActivity.grad,String.valueOf(temp_kelvin),pressure,humidity));
 
 
                             }

@@ -5,11 +5,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.NumberKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,7 +40,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     public static TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar,temperatura,last_update;
     public LinearLayout layout2,layout3,layout4;
     public Button temp,sunce,vetar_button,statistika;
-    public String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1,last_updated,vreme;
+    public String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1,last_updated,vreme,previous;
     public static ImageView slika,refresh;
     public Spinner dropdown;
     private Http http;
@@ -46,13 +48,14 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     private static String API_KEY = "&APPID=6db369e4771614a635375634c3e40b8d";
     private Forecast[] forecasts;
     private DateDb1 dbHelper;
+    private Forecast danas;
     private StatisticsDbHelper dbHelper1= new StatisticsDbHelper(this);
     public static String filename,grad,formattedDate;
-    public String jsonObject;
     Intent serviceIntent;
     private BoundService mService;
     public static boolean mBound = false;
     private Button stopService, startService;
+    private double degree;
 
 
     @SuppressLint("SetTextI18n")
@@ -112,6 +115,14 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("EE");
         formattedDate = df.format(c.getTime());
         http = new Http();
+        try {
+            danas = dbHelper1.readForecast(grad, getToday());
+        }
+        catch (CursorIndexOutOfBoundsException e){
+            temperatura.setHint("Grad prvi put u bazi.");
+        }
+        final MyNDK ndk = new MyNDK();
+
 
 
       /*  new Thread(new Runnable() {
@@ -130,8 +141,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
             }
         }).start();
         */
-
-
 
 
 
@@ -162,25 +171,28 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         String[] items = new String[]{"°C","°F"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
+
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                String string = adapterView.getSelectedItem().toString();
-               switch (string){
-                   case "°F":
-                       NumberFormat form = new DecimalFormat("#0.0");
-                       if(farenhajt!=0.0)
-                       temperatura.setText(" Temp:" + form.format(farenhajt) + " °F");
-                       break;
-                   case "°C":
-                       NumberFormat form1 = new DecimalFormat("#0.0");
-                       if(celzijus!=0.0)
-                       temperatura.setText(" Temp:" + form1.format(celzijus) + " °C");
+               NumberFormat form = new DecimalFormat("#0.0");
+               try {
+                   switch (string) {
+                       case "°F":
 
-                       break;
-                       default:
+                           temperatura.setText("Temp: " + form.format(ndk.convertDegrees(Double.parseDouble(danas.getTemp()), 0)) + "°F");
                            break;
+                       case "°C":
+                           temperatura.setText("Temp: " + form.format(ndk.convertDegrees(Double.parseDouble(danas.getTemp()), 1)) + "°C");
+                           break;
+
+                   }
+               }catch (NullPointerException e){
+                   temperatura.setText("Please acquire weather data.");
                }
+
+
            }
            @Override
            public void onNothingSelected(AdapterView<?> adapterView) {
@@ -250,16 +262,18 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     public void onClick(View view) {
         serviceIntent = new Intent(this, BoundService.class);
         serviceIntent.putExtra("grad",grad);
+
         switch(view.getId()) {
              case R.id.refresh:
-                 Forecast danas = dbHelper1.readForecast(grad,getToday());
-                 NumberFormat form = new DecimalFormat("#0.0");
-                 temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp())) + " °C");
-                 pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
-                 vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
+                 try {
+                     NumberFormat form = new DecimalFormat("#0.0");
+                     temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp())) + " K");
+                     pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
+                     vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
+                 }catch (NullPointerException e){
+                     temperatura.setText("Please acquire weather data.");
+                 }
                  break;
-
-
             case R.id.startService:
                 startService(serviceIntent);
                 if (!bindService(serviceIntent, this, Context.BIND_AUTO_CREATE)) {
