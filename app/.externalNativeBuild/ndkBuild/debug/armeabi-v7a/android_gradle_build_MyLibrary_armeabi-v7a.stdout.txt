@@ -1,0 +1,2 @@
+[armeabi-v7a] Compile thumb  : MyLibrary <= MyJNI.c
+[armeabi-v7a] SharedLibrary  : libMyLibrary.so

@@ -1,0 +1,1 @@
+make: `C:/Users/student/Desktop/WeatherApplication-v1.6-master/app/build/intermediates/ndkBuild/debug/obj/local/x86_64/libMyLibrary.so' is up to date.

@@ -48,7 +48,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
     private static String API_KEY = "&APPID=6db369e4771614a635375634c3e40b8d";
     private Forecast[] forecasts;
     private DateDb1 dbHelper;
-    private Forecast danas;
+    public Forecast danas;
     private StatisticsDbHelper dbHelper1= new StatisticsDbHelper(this);
     public static String filename,grad,formattedDate;
     Intent serviceIntent;
@@ -72,7 +72,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         dropdown = (Spinner) findViewById(R.id.spinner);
         ime_grada = (TextView) findViewById(R.id.TextView1);
         dan = (TextView) findViewById(R.id.textView4);
-        ime_grada.setText(grad);
         pritisak = (TextView) findViewById(R.id.textView8);
         vlaznost = (TextView) findViewById(R.id.textView9);
         izlazak_zalazak = findViewById(R.id.textView6);
@@ -103,6 +102,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         } else {
             throw new IllegalArgumentException("Activity cannot find  extras " + "grad");
         }
+        ime_grada.setText(grad);
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat timeStampFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
@@ -124,28 +124,8 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         final MyNDK ndk = new MyNDK();
 
 
-
-      /*  new Thread(new Runnable() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void run() {
-                final String URL = API_URL + grad + API_KEY;
-
-                try {
-                    jsonObject = http.getJSONObjectFromURL(URL);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        */
-
-
-
         dbHelper = new DateDb1(this);
-        dbHelper.insertDate("First time loaded.", grad);
+
         forecasts = dbHelper1.readForecasts(grad);
         try {
             for (int i = 0; i < 7; i++) {
@@ -165,9 +145,14 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
         }catch (NullPointerException e){
             temperatura.setText("Grad prvi put u bazi podataka.");
         }
+        try {
+            dan.setText(dbHelper.readLastDate(grad));
+        }
+        catch (CursorIndexOutOfBoundsException d){
+            dan.setText("First time loaded.");
+        }
 
 
-        dan.setText(dbHelper.readLastDate(grad));
         String[] items = new String[]{"°C","°F"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
@@ -180,7 +165,6 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                try {
                    switch (string) {
                        case "°F":
-
                            temperatura.setText("Temp: " + form.format(ndk.convertDegrees(Double.parseDouble(danas.getTemp()), 0)) + "°F");
                            break;
                        case "°C":
@@ -267,6 +251,7 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
              case R.id.refresh:
                  try {
                      NumberFormat form = new DecimalFormat("#0.0");
+                     dan.setText(dbHelper.readLastDate(grad));
                      temperatura.setText(" Temp:" + form.format(Double.parseDouble(danas.getTemp())) + " K");
                      pritisak.setText(" Pritisak: " + danas.getPressure() + "mb");
                      vlaznost.setText(" Vlažnost: " + danas.getHumidity() + "%");
@@ -275,6 +260,8 @@ public class DetailsActivity<intent> extends AppCompatActivity implements View.O
                  }
                  break;
             case R.id.startService:
+                dbHelper.deleteOldDate(grad);
+                dbHelper.insertDate(filename + "\n" +vreme, grad);
                 startService(serviceIntent);
                 if (!bindService(serviceIntent, this, Context.BIND_AUTO_CREATE)) {
                     Log.d("Android servis", "Bind Failed!");

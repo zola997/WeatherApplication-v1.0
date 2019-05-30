@@ -1,1 +1,2 @@
-make: `C:/Users/Laza/Desktop/projekat/WeatherApplication-v1.4/app/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libMyLibrary.so' is up to date.
+[arm64-v8a] Compile        : MyLibrary <= MyJNI.c
+[arm64-v8a] SharedLibrary  : libMyLibrary.so

@@ -27,7 +27,7 @@ import java.util.Date;
 
 
 public class BoundService extends Service {
-    private static final long PERIOD = 10*1000L;
+    private static final long PERIOD = 5*1000L;
     private BoundServiceExample mBounderExample = null;
     private final IBinder mBinder = new LocalBinder();
     private boolean serviceActive;
@@ -36,13 +36,13 @@ public class BoundService extends Service {
     public static double celzijus,farenhajt;
     public SimpleDateFormat sdf;
     private Http httpHelper;
-    public TextView ime_grada,dan,pritisak,vlaznost,izlazak_zalazak,vetar,temperatura,last_update;
     public LinearLayout layout2,layout3,layout4;
     public Button temp,sunce,vetar_button,statistika;
-    public String temp_kelvin,pressure,humidity,wind_dir,wind_speed,sunrise,sunset,weather1,last_updated,vreme;
+    public String temp_kelvin,pressure,humidity;
     public ImageView slika,refresh;
     public String filename,grad,formattedDate;
     private StatisticsDbHelper dbHelper;
+    private Forecast forecast;
 
     public BoundService() {
     }
@@ -73,6 +73,7 @@ public class BoundService extends Service {
         serviceActive = true;
         httpHelper=new Http();
         dbHelper=new StatisticsDbHelper(this);
+
 
     }
 
@@ -139,13 +140,14 @@ public class BoundService extends Service {
                                 JSONObject main = (JSONObject) jsonObject.get("main");
                                 NumberFormat form = new DecimalFormat("#0.0");
                                 temp_kelvin = main.getString("temp");
-                               // celzijus = Double.parseDouble(temp_kelvin) - 273.15;
+                                celzijus = Double.parseDouble(temp_kelvin) - 273.15;
                                 farenhajt = celzijus * 9 / 5 + 32;
                                 pressure = main.getString("pressure");
                                 humidity = main.getString("humidity");
 
                                 dbHelper.deleteForecast(DetailsActivity.grad,DetailsActivity.getToday());
                                 dbHelper.insert(new Forecast(DetailsActivity.getToday(),DetailsActivity.grad,String.valueOf(temp_kelvin),pressure,humidity));
+
 
 
                             }
@@ -171,7 +173,7 @@ public class BoundService extends Service {
                     .setTicker("Weather")
                     .setSmallIcon(R.drawable.refresh)
                     .setContentTitle("Temperatura azurirana")
-                    .setContentText(DetailsActivity.grad+" " + form.format(celzijus) + " °C")
+                    .setContentText(DetailsActivity.grad+" " + String.valueOf(celzijus) + " °C")
                     .setContentInfo("info")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
